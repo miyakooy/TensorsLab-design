@@ -1,8 +1,8 @@
 ---
 name: TensorsLab Design
-description: 高保真 UI 原型、营销页面、演示 Deck、信息图表。 为 TensorsLab AI 产品设计。AI 产品原型/UI 设计/营销页面/演示文稿. AI 디자인/프론트엔드 プロトタイプ/マーケティングページ/プレゼンテーションシート.
-title: TensorsLab Design - AI 产品设计 Skill
-keywords: AI 设计 skill, Claude Code, 前端原型, UI 设计, 营销页面, 演示文稿, 信息图表, HTML 设计, 无代码设计, AI 产品设计, UI 设计, prototyping, プロトタイプ, AI 디자인, 프론트엔드
+description: 高保真UI原型、营销页面、演示Deck、信息图表。为TensorsLab AI产品设计。AI产品原型/UI设计/营销页面/演示文稿. AI디자인/프론트엔드 プロトタイプ/マーケティングページ.
+title: TensorsLab Design - AI产品设计Skill
+keywords: AI设计skill, Claude Code, 前端原型, UI设计, 营销页面, 演示文稿, 信息图表, HTML设计, 无代码设计, AI产品设计, UI设计, prototyping, 프로토тип, プロトタイプ
 language: zh-CN
 ---
 
@@ -10,19 +10,43 @@ language: zh-CN
 
 **一句话 prompt，拿回一份能交付的设计。**
 
-高保真原型、营销页面、演示 Deck、信息图表——为 TensorsLab 产品设计一枚 skill。
+高保真原型、营销页面、演示Deck、信息图表——为TensorsLab产品设计一枚skill。
 
 ```
 npx skills add miyakooy/TensorsLab--design -y
 ```
 
-然后在 agent 里说话：
+然后在agent里说话：
 
 ```
-「做一份 AI 产品经理的演讲 PPT，推荐 3 个风格方向」
-「帮我设计 TensorsLab 主页，参考 vercel 的风格」
+「做一份AI产品经理的演讲PPT，推荐3个风格方向」
+「帮我设计TensorsLab主页，参考vercel的风格」
 「做一个模型对比页，展示性能指标」
 ```
+
+---
+
+## 快速开始
+
+| Agent | 安装命令 |
+|-------|----------|
+| Claude Code | `/plugin marketplace add miyakooy/TensorsLab--design` |
+| Cursor / Codex / Cline | `npx skills add miyakooy/TensorsLab--design -y` |
+| OpenClaw | `clawhub install miyakooy/TensorsLab--design` |
+| 通用 | `npx skills add miyakooy/TensorsLab--design -y` |
+
+---
+
+## Skills
+
+| Skill | 功能 | 文件 |
+|-------|------|------|
+| interactive-prototype | App/Web原型，真设备框 | [assets/ios_frame.jsx](assets/ios_frame.jsx) |
+| marketing-page | 主页、定价页、文档页 | [demos/hero.html](demos/hero.html) |
+| presentation-deck | Deck演示+可编辑PPTX | [assets/deck_stage.js](assets/deck_stage.js) |
+| infographic | PDF/PNG/SVG导出 | [demos/style.html](demos/style.html) |
+| design-advisor | 2-3个方向+Demo | [demos/design-canvas.html](demos/design-canvas.html) |
+| design-review | 5维度评审 | [references/critique-guide.md](references/critique-guide.md) |
 
 ---
 
@@ -30,36 +54,50 @@ npx skills add miyakooy/TensorsLab--design -y
 
 | 能力 | 交付物 | 耗时 |
 |------|--------|------|
-| 交互原型（App/Web）| 单文件 HTML · 真设备框 · 可点击 | 10–15 分钟 |
-| 产品主页 / 营销页 | 品牌化着陆页、定价页、文档页 | 10–15 分钟 |
-| 演讲幻灯片 | HTML deck + 可编辑 PPTX | 15–25 分钟 |
-| 信息图表 | 可导 PDF / PNG / SVG | 8–12 分钟 |
-| 设计方向顾问 | 2–3 个方向 + Demo | 5 分钟 |
-| 5 维度评审 | 雷达图 + 修复清单 | 3 分钟 |
+| 交互原型（App/Web）| 单文件HTML·真设备框·可点击 | 10-15分钟 |
+| 产品主页/营销页 | 着陆页、定价页、文档页 | 10-15分钟 |
+| 演讲幻灯片 | HTML deck+可编辑PPTX | 15-25分钟 |
+| 信息图表 | PDF/PNG/SVG导出 | 8-12分钟 |
+| 设计方向顾问 | 2-3个方向+Demo | 5分钟 |
+| 5维度评审 | 雷达图+修复清单 | 3分钟 |
+
+---
+
+## Demo画廊
+
+- [Homepage Hero](demos/hero.html) - 模块化首页
+- [Style Board](demos/style.html) - 视觉风格参考
+- [Model Page](demos/model.html) - 产品文档页
+- [Pricing](demos/pricing.html) - 定价页
+- [Design Canvas](demos/design-canvas.html) - 变体对比
+- [Device Frames](demos/frames.html) - 设备框架
+- [Deck Stage](demos/deck-stage.html) - 演示文稿
+- [Motion](demos/motion.html) - 动效原语
 
 ---
 
 ## 设计原则
 
-### Junior Designer 工作流
+### Junior Designer工作流
 
-先 show 假设，等确认，再深入。
+先show假设，等确认，再深入。
 
-- 开工前列问题清单
-- HTML 里写 assumptions + placeholders
-- 内容 → 变体 → 微调，每步都 show
-- 交付前浏览器验证
+1. 开工前列问题清单
+2. HTML里写assumptions+placeholders
+3. 内容→变体→微调，每步都show
+4. 交付前浏览器验证
 
-### 反 AI slop
+### 反AI slop
 
-避免紫渐变、emoji 图标、圆角+左 border accent。用 CSS Grid + 精心选择的字体。
+避免：紫渐变、emoji图标、圆角+左border accent。  
+使用：CSS Grid + 精心选择的字体。
 
-### 品牌资产
+### 品牌资产协议
 
 涉及具体品牌时：
-1. 问有没有 brand guidelines
+1. 问有没有brand guidelines
 2. 搜官方页抓色值
-3. 固化到 brand-spec.md
+3. 固化到brand-spec.md
 
 ---
 
@@ -68,54 +106,54 @@ npx skills add miyakooy/TensorsLab--design -y
 ```
 assets/
 ├── animations.jsx      # 动效原语
-├── ios_frame.jsx        # iPhone 框
-├── android_frame.jsx   # Android 框
-├── macos_window.jsx     # macOS 窗口
-├── browser_window.jsx   # 浏览器框
-├── deck_stage.js       # Deck 演示
-└── design_canvas.jsx   # 变体对比
+├── ios_frame.jsx      # iPhone框
+├── android_frame.jsx  # Android框
+├── macos_window.jsx   # macOS窗口
+├── browser_window.jsx # 浏览器框
+├── deck_stage.js      # Deck演示
+└── design_canvas.jsx # 变体对比
 ```
 
 ---
 
-## Demo 画廊
+## 操作模型
 
-试试这些 Demo：
-
-- [Homepage Hero](demos/hero.html) — 模块化首页
-- [Style Board](demos/style.html) — 视觉风格参考
-- [Model Page](demos/model.html) — 产品文档页
-- [Pricing](demos/pricing.html) — 定价页
-- [Design Canvas](demos/design-canvas.html) — 变体对比
-- [Device Frames](demos/frames.html) — 设备框架
-- [Deck Stage](demos/deck-stage.html) — 演示文稿
-- [Motion](demos/motion.html) — 动效原语
+```
+  研究          构建          验证          导出
+  ────         ────          ────          ────
+ 品牌资产      原型          浏览器        PNG/PDF
+ 风格参考      Deck         评审         PPTX
+ 方向探索     信息图表      微调         HTML
+```
 
 ---
 
 ## 限制
 
-- **不支持 Figma 级编辑**。产出 HTML 可截图、录屏、导图。
+- **不支持Figma级编辑**。产出HTML可截图、录屏。
 - **空白品牌设计会掉分**。给品牌资产会更好。
-- **3D / 物理 / 粒子超出边界**。只做 2D 平面设计。
+- **3D/物理/粒子超出边界**。只做2D平面设计。
 
-这是一枚 80 分的 skill。不愿意开图形界面的人够用了。
+这是一枚80分的skill。不愿意开图形界面的人够用了。
 
 ---
 
-## 安装
+## 相关Skills
 
-```bash
-npx skills add miyakooy/TensorsLab--design -y
-```
+- [huashu-design](https://github.com/alchaincyf/huashu-design) - 类似skill，更多动画功能
+- [Claude Design](https://claude.ai/design) - 官方AI设计工具
 
-支持 agents: Claude Code, Cursor, Codex, OpenClaw 等。
+---
+
+## 许可证
+
+MIT许可证。个人使用免费。商业使用需授权。
 
 ---
 
 ## 更新日志
 
-- v1.0 (2026-04) — 初始版本，8 个组件模板
-- v1.1 (2026-04) — 添加定价页、模块化首页
-- v1.2 (2026-04) — SEO 优化、双语 README
-- v1.3 (2026-04) — 多语言触发词优化
+- v1.0 (2026-04) - 初始版本，8个组件
+- v1.1 (2026-04) - 添加定价页、模块化首页
+- v1.2 (2026-04) - SEO双语、多语言触发词
+- v1.3 (2026-04) - Skills表格、多agent安装
