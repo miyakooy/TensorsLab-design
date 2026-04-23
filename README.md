@@ -1,136 +1,193 @@
 # TensorsLab Design
 
-TensorsLab Design 是专用于 TensorsLab 品牌与产品视觉传达的设计技能包。
+**一句话 prompt，拿回一份能交付的设计。**
 
-**核心用途**：为 TensorsLab 生成品牌化的 UI 原型、营销页面、演示 Deck、信息图表和发布视频。
-
-## 如何使用
-
-你可以这样使用它：
-
-- 「做一份 AI 产品经理的演讲 PPT，推荐 3 个风格方向让我选」
-- 「帮我设计一个 TensorsLab 产品主页，参考 vercel 的风格」
-- 「做一个模型比较页面的视觉设计，展示 4 个模型的性能指标」
-- 「帮我做一套发布会的 Keynote 风格，配色要品牌一些」
-
-## 核心能力
-
-TensorsLab Design 提供完整的设计工作流支持：
-
-- **高保真 UI / App / Web 原型**：从概念到可生产的高保真界面设计
-- **产品主页与营销页面**：品牌化的着陆页、定价页、文档页
-- **演示 Deck 与发布会视觉**：Keynote 风格的演讲材料和专业展示
-- **动态图形与发布视频**：产品发布会的动效和视频素材
-- **信息图表与数据可视化**：清晰的数据呈现和品牌图表
-- **品牌视觉探索与设计评审**：多方向探索和设计质量评审
-
-设计系统支持灵活的品牌定制，产出风格由用户需求和场景决定。
-
-## 设计资产
-
-技能包含以下可直接使用的组件和模板：
-
-- `animations.jsx` - 动效原语和交互动画
-- `ios_frame.jsx` / `android_frame.jsx` - 移动设备框架
-- `macos_window.jsx` / `browser_window.jsx` - 桌面窗口框架
-- `deck_stage.js` - 单文件 Deck 演示文稿
-- `design_canvas.jsx` - 变体对比画布
-
-## 推荐流程
-
-1. **收集品牌资产** - Logo、产品截图、官方图片
-2. **明确任务类型** - 原型 / Deck / 动画 / 图表
-3. **确定设计方向** - 2-3 个方向供选择
-4. **产出变体** - 早期稿和低保真
-5. **打磨优化** - 高保真和完善细节
-6. **评审验证** - 设计质量检查
-7. **导出交付** - 各种格式的最终输出
-
-## 技术特点
-
-- 统一的设计语言系统（TensorsLab 绿 / 蓝 / 白）
-- 品牌化的视觉呈现
-- 支持 `tl-image` 进行图片生成 / 编辑
-- 聚焦 TensorsLab 市场营销、产品和销售的设计交付物
-- 每个示例都是独立可运行的文件，方便直接参考
-
-## 仓库结构
+高保真原型、营销页面、演示 Deck、信息图表——给 TensorsLab 的产品设计一枚 skill。
 
 ```
-TensorsLab--design/
-├── SKILL.md              # 技能定义
-├── README.md             # 本文件
-├── assets/               # 设计组件和动画
-│   ├── animations.jsx
-│   ├── ios_frame.jsx
-│   ├── android_frame.jsx
-│   ├── macos_window.jsx
-│   ├── browser_window.jsx
-│   ├── deck_stage.js
-│   └── design_canvas.jsx
-├── demos/                # 演示页面
-├── references/           # 参考文档
-└── scripts/              # 辅助脚本
+npx skills add miyakooy/TensorsLab--design
 ```
+
+然后在 agent 里说话：
+
+```
+「做一份 AI 产品经理的演讲 PPT，推荐 3 个风格方向」
+「帮我设计 TensorsLab 主页，参考 vercel 的风格」
+「做一个模型对比页，展示性能指标」
+```
+
+---
+
+## 能力表
+
+| 能力 | 交付物 | 典型耗时 |
+|------|--------|----------|
+| 交互原型（App/Web）| 单文件 HTML · 真设备框 · 可点击 | 10–15 min |
+| 产品主页 / 营销页 | 品牌化着陆页、定价页、文档页 | 10–15 min |
+| 演讲幻灯片 | HTML deck + 可编辑 PPTX | 15–25 min |
+| 信息图表 | 可导 PDF / PNG / SVG | 8–12 min |
+| 设计方向顾问 | 2–3 个差异化方向 + Demo | 5 min |
+| 5 维度评审 | 雷达图 + 修复清单 | 3 min |
+
+---
+
+## 设计原则
+
+### Junior Designer 工作流
+
+默认模式：先 show 假设，等确认，再深入。
+
+- 开工前列问题清单，一次性发给用户
+- HTML 里先写 assumptions + placeholders
+- 填充内容 → 变体 → 微调，每步都 show 一次
+- 交付前浏览器过一遍
+
+### 反 AI slop
+
+避免紫渐变、emoji 图标、圆角+左 border accent、Inter 做标题。用 CSS Grid + 精心选择的字体和色彩。
+
+### 品牌资产
+
+涉及具体品牌时：
+1. 问用户有没有 brand guidelines
+2. 搜官方页抓色值
+3. 固化到 `brand-spec.md`
+
+---
+
+## 包含组件
+
+```
+assets/
+├── animations.jsx      # 动效原语
+├── ios_frame.jsx        # iPhone 框
+├── android_frame.jsx   # Android 框
+├── macos_window.jsx     # macOS 窗口
+├── browser_window.jsx   # 浏览器框
+├── deck_stage.js       # Deck 演示
+└── design_canvas.jsx   # 变体对比
+```
+
+---
+
+## 限制
+
+- **不支持 Figma 级复杂编辑**。产出 HTML，可截图、录屏、导图。
+- **完全空白的品牌从零设计质量会掉分**。给品牌资产会更好。
+- **3D / 物理模拟 / 粒子系统超出边界**。做 2D 平面设计。
+
+这是一枚 80 分的 skill。对不愿意开图形界面的人来说，80 分够用了。
+
+---
+
+## 装了怎么用
+
+```bash
+npx skills add miyakooy/TensorsLab--design
+```
+
+然后直接说话下需求。Demo 画廊：
+
+- [Homepage Hero](demos/hero.html) — 模块化首页
+- [Style Board](demos/style.html) — 视觉风格参考
+- [Model Page](demos/model.html) — 产品文档页
+- [Pricing](demos/pricing.html) — 定价页
+- [Design Canvas](demos/design-canvas.html) — 变体对比
 
 ---
 
 # English Version
 
-TensorsLab Design is a **design-only** skill package for TensorsLab brand and product visual communication.
+**Type a prompt, get a deliverable design.**
 
-## What This Skill Does
-
-Generate brand-aligned UI prototypes, marketing pages, presentation decks, infographics, and launch videos for TensorsLab products.
-
-## How to Use
-
-Example commands:
-
-- "Create a PPT for AI product manager, recommend 3 style directions"
-- "Design a TensorsLab product homepage, reference Vercel's style"
-- "Create a model comparison page showing 4 model performance metrics"
-- "Make a Keynote-style launch deck with brand colors"
-
-## Key Capabilities
-
-- High-fidelity UI / App / Web prototypes
-- Product homepages and marketing pages
-- Presentation decks and launch visuals
-- Motion graphics and launch videos
-- Infographics and data visualization
-- Brand visual exploration and design review
-
-## Design System
-
-Flexible brand customization - output style is determined by user needs and context.
-
-## Components Included
-
-- `animations.jsx` - Motion primitives and interaction patterns
-- `ios_frame.jsx` / `android_frame.jsx` - Mobile device frames
-- `macos_window.jsx` / `browser_window.jsx` - Desktop window frames
-- `deck_stage.js` - Single-file deck presentation
-- `design_canvas.jsx` - Variant comparison canvas
-
-## Suggested Workflow
-
-1. Collect brand assets (logo, screenshots, imagery)
-2. Identify task type (prototype / deck / animation / infographic)
-3. Determine design direction(s)
-4. Produce variants and early placeholders
-5. Refine to high-fidelity
-6. Design review and verification
-7. Export in required formats
-
-## Repository Layout
+Hi-fi prototypes, marketing pages, presentation decks, infographics — a design skill for TensorsLab products.
 
 ```
-TensorsLab--design/
-├── SKILL.md
-├── README.md
-├── assets/
-├── demos/
-├── references/
-└── scripts/
+npx skills add miyakooy/TensorsLab--design
 ```
+
+Then talk to your agent:
+
+```
+"Create a PPT for AI product manager, recommend 3 styles"
+"Design a TensorsLab homepage, reference Vercel"
+"Make a model comparison page with performance metrics"
+```
+
+---
+
+## Capabilities
+
+| Capability | Deliverable | Typical Time |
+|-----------|-----------|-------------|
+| Interactive Prototype (App/Web)| Single HTML · Real device frame · Clickable | 10–15 min |
+| Product Homepage | Landing, pricing, docs pages | 10–15 min |
+| Presentation Deck | HTML deck + Editable PPTX | 15–25 min |
+| Infographics | PDF / PNG / SVG export | 8–12 min |
+| Design Advisor | 2–3 directions + Demo | 5 min |
+| 5-Dimension Review | Radar chart + Fix list | 3 min |
+
+---
+
+## Design Principles
+
+### Junior Designer Workflow
+
+Default: show assumptions first, wait for confirmation, then dive deep.
+
+- List questions upfront before coding
+- Write assumptions + placeholders in HTML
+- Show content → variants → tweaks at each step
+- Browser verify before delivery
+
+### Anti-AI Slop
+
+Avoid purple gradients, emoji icons, rounded corners + left border accent, Inter for display titles. Use CSS Grid + carefully chosen fonts and colors.
+
+### Brand Assets
+
+When working with specific brands:
+1. Ask for brand guidelines
+2. Scrape official pages for colors
+3. Freeze to brand-spec.md
+
+---
+
+## Included Components
+
+```
+assets/
+├── animations.jsx      # Motion primitives
+├── ios_frame.jsx        # iPhone frame
+├── android_frame.jsx   # Android frame
+├── macos_window.jsx     # macOS window
+├── browser_window.jsx   # Browser frame
+├── deck_stage.js       # Deck presentation
+└── design_canvas.jsx   # Variant comparison
+```
+
+---
+
+## Limitations
+
+- **No Figma-level editing**. Output is HTML — screenshot, record, or export as image.
+- **Blank-brand designs score lower**. Brand assets improve quality.
+- **3D / physics / particles out of scope**. 2D平面 design only.
+
+This is an 80-point skill. For those who don't want to open a GUI, 80 points is enough.
+
+---
+
+## How to Install
+
+```bash
+npx skills add miyakooy/TensorsLab--design
+```
+
+Then just talk to your agent. Demo gallery:
+
+- [Homepage Hero](demos/hero.html) — Modular homepage
+- [Style Board](demos/style.html) — Visual style reference
+- [Model Page](demos/model.html) — Product docs page
+- [Pricing](demos/pricing.html) — Pricing tier page
+- [Design Canvas](demos/design-canvas.html) — Variant comparison
