@@ -6,22 +6,23 @@
     <title>TensorsLab Hero Demo</title>
     <style>
       :root {
-        --bg: #f7fbff;
-        --bg-2: #eef7ff;
-        --ink: #07223d;
-        --muted: #5b728a;
-        --line: rgba(7, 34, 61, 0.12);
+        --bg: #f6fbff;
+        --bg2: #edf6ff;
+        --ink: #082033;
+        --muted: #587089;
+        --line: rgba(8, 32, 51, 0.1);
         --blue: #2563eb;
         --green: #0f766e;
-        --white: #ffffff;
+        --panel: rgba(255, 255, 255, 0.78);
+        --shadow: 0 30px 100px rgba(8, 32, 51, 0.12);
       }
       html, body {
         margin: 0;
         min-height: 100%;
         background:
-          radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 32%),
-          radial-gradient(circle at 85% 18%, rgba(15, 118, 110, 0.12), transparent 28%),
-          linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+          radial-gradient(circle at 8% 10%, rgba(37, 99, 235, 0.12), transparent 28%),
+          radial-gradient(circle at 84% 18%, rgba(15, 118, 110, 0.12), transparent 26%),
+          linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
         color: var(--ink);
         font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       }
@@ -29,37 +30,60 @@
       .shell {
         position: relative;
         overflow: hidden;
-        border-radius: 32px;
-        background: rgba(255,255,255,0.72);
-        border: 1px solid rgba(148,163,184,0.28);
-        box-shadow: 0 32px 100px rgba(7, 34, 61, 0.12);
+        border-radius: 34px;
+        background: rgba(255, 255, 255, 0.74);
+        border: 1px solid rgba(148, 163, 184, 0.26);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(20px);
       }
       .topbar {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 20px;
         padding: 18px 24px;
         border-bottom: 1px solid var(--line);
-        backdrop-filter: blur(18px);
       }
-      .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; }
-      .dot { width: 14px; height: 14px; border-radius: 999px; background: linear-gradient(135deg, var(--blue), var(--green)); box-shadow: 0 0 0 6px rgba(37,99,235,0.08); }
-      .nav { display: flex; gap: 14px; color: var(--muted); font-size: 13px; }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      .mark {
+        width: 16px;
+        height: 16px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--blue), var(--green));
+        box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.08);
+      }
+      .nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        color: var(--muted);
+        font-size: 13px;
+      }
       .hero {
         display: grid;
-        grid-template-columns: 1.2fr 0.8fr;
-        gap: 32px;
+        grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
+        gap: 28px;
         padding: 36px 28px 28px;
-        align-items: center;
+        align-items: stretch;
+      }
+      .left {
+        display: grid;
+        align-content: start;
       }
       .eyebrow {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 8px 12px;
         width: fit-content;
+        padding: 8px 12px;
         border-radius: 999px;
-        background: rgba(37,99,235,0.09);
+        background: rgba(37, 99, 235, 0.09);
         color: var(--blue);
         font-size: 12px;
         font-weight: 800;
@@ -68,24 +92,30 @@
       }
       h1 {
         margin: 16px 0 14px;
-        font-size: clamp(42px, 6vw, 76px);
-        line-height: 0.96;
-        letter-spacing: -0.05em;
-        max-width: 10ch;
+        max-width: 11ch;
+        font-size: clamp(42px, 6vw, 84px);
+        line-height: 0.93;
+        letter-spacing: -0.06em;
       }
       .lede {
         max-width: 56ch;
+        margin: 0;
         color: var(--muted);
         font-size: 18px;
-        line-height: 1.7;
-        margin: 0 0 24px;
+        line-height: 1.75;
       }
-      .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 24px;
+      }
       .btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 14px 18px;
+        min-height: 48px;
+        padding: 0 18px;
         border-radius: 14px;
         border: 1px solid var(--line);
         text-decoration: none;
@@ -102,46 +132,117 @@
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 12px;
-        margin-top: 24px;
+        margin-top: 28px;
       }
       .stat {
         padding: 14px 16px;
         border-radius: 18px;
-        background: rgba(255,255,255,0.82);
+        background: rgba(255,255,255,0.84);
         border: 1px solid var(--line);
       }
-      .stat strong { display: block; font-size: 24px; }
-      .stat span { color: var(--muted); font-size: 12px; letter-spacing: 0.02em; }
-      .panel {
+      .stat strong { display: block; font-size: 24px; letter-spacing: -0.03em; }
+      .stat span { color: var(--muted); font-size: 12px; }
+      .right {
         position: relative;
-        min-height: 560px;
+        overflow: hidden;
         border-radius: 28px;
-        background: linear-gradient(180deg, rgba(7, 34, 61, 0.96), rgba(7, 34, 61, 0.88));
+        background: linear-gradient(180deg, rgba(7, 32, 51, 0.98), rgba(7, 32, 51, 0.9));
         color: #dbeafe;
         padding: 22px;
-        overflow: hidden;
       }
-      .panel::before,
-      .panel::after {
+      .right::before,
+      .right::after {
         content: '';
         position: absolute;
         border-radius: 999px;
-        filter: blur(22px);
+        filter: blur(18px);
       }
-      .panel::before { inset: 40px 48px auto auto; width: 180px; height: 180px; background: rgba(37, 99, 235, 0.34); }
-      .panel::after { left: -20px; bottom: 12px; width: 220px; height: 220px; background: rgba(15, 118, 110, 0.26); }
-      .stack { position: relative; display: grid; gap: 14px; z-index: 1; }
+      .right::before {
+        width: 210px;
+        height: 210px;
+        top: 36px;
+        right: 30px;
+        background: rgba(37, 99, 235, 0.26);
+      }
+      .right::after {
+        width: 240px;
+        height: 240px;
+        left: -28px;
+        bottom: 0;
+        background: rgba(15, 118, 110, 0.24);
+      }
+      .panel {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        gap: 14px;
+      }
+      .glass,
+      .metric,
+      .tile {
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.12);
+        backdrop-filter: blur(14px);
+      }
       .glass {
         padding: 16px;
         border-radius: 18px;
-        background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(255,255,255,0.14);
-        backdrop-filter: blur(14px);
       }
-      .mini-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-      .metric { padding: 16px; border-radius: 18px; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.12); }
+      .glass b,
+      .metric strong,
+      .tile b {
+        letter-spacing: -0.02em;
+      }
+      .glass p {
+        margin: 8px 0 0;
+        color: rgba(219,234,254,0.74);
+        line-height: 1.6;
+      }
+      .mini-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .metric {
+        padding: 16px;
+        border-radius: 18px;
+      }
       .metric strong { display: block; font-size: 28px; }
       .metric span { color: rgba(219,234,254,0.72); font-size: 12px; }
+      .progress {
+        display: grid;
+        gap: 12px;
+        padding: 16px;
+        border-radius: 18px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.1);
+      }
+      .bar {
+        height: 10px;
+        border-radius: 999px;
+        background: rgba(219,234,254,0.12);
+        overflow: hidden;
+      }
+      .bar span {
+        display: block;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, rgba(37,99,235,0.9), rgba(15,118,110,0.9));
+      }
+      .tile {
+        display: grid;
+        gap: 10px;
+        padding: 16px;
+        border-radius: 18px;
+      }
+      .tile .row {
+        height: 12px;
+        border-radius: 999px;
+        background: rgba(219,234,254,0.12);
+      }
+      .tile .row:nth-child(2) { width: 82%; }
+      .tile .row:nth-child(3) { width: 64%; }
+      .tile .row:nth-child(4) { width: 74%; }
       .foot {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -149,31 +250,35 @@
         padding: 0 28px 28px;
       }
       .foot-card {
-        min-height: 88px;
         padding: 16px;
         border-radius: 18px;
         background: rgba(255,255,255,0.82);
         border: 1px solid var(--line);
       }
       .foot-card b { display: block; margin-bottom: 8px; }
-      .foot-card span { color: var(--muted); font-size: 13px; line-height: 1.5; }
-      @media (max-width: 960px) {
+      .foot-card span { color: var(--muted); font-size: 13px; line-height: 1.55; }
+      @media (max-width: 1040px) {
         .hero { grid-template-columns: 1fr; }
-        .foot { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .stats, .foot { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+      @media (max-width: 640px) {
+        body { padding: 16px; }
+        .topbar, .hero, .foot { padding-left: 18px; padding-right: 18px; }
+        .stats, .foot { grid-template-columns: 1fr; }
       }
     </style>
   </head>
   <body>
     <div class="shell">
       <div class="topbar">
-        <div class="brand"><span class="dot"></span><span>TensorsLab</span></div>
+        <div class="brand"><span class="mark"></span><span>TensorsLab</span></div>
         <div class="nav"><span>Models</span><span>Studio</span><span>Docs</span></div>
       </div>
       <section class="hero">
-        <div>
+        <div class="left">
           <div class="eyebrow">AI content infrastructure</div>
           <h1>Design that feels industrial, clear, and ready to ship.</h1>
-          <p class="lede">A hero concept for TensorsLab Design that blends product trust, high-throughput visual language, and clean information hierarchy into a single homepage opening.</p>
+          <p class="lede">A cleaner, more product-grade hero concept for TensorsLab Design. It favors clear hierarchy, calm confidence, and a structured layout that can scale into launch pages, pricing, and docs.</p>
           <div class="actions">
             <a class="btn primary" href="#">Start building</a>
             <a class="btn" href="#">Explore docs</a>
@@ -184,21 +289,27 @@
             <div class="stat"><strong>3</strong><span>design modes</span></div>
           </div>
         </div>
-        <div class="panel">
-          <div class="stack">
+        <div class="right">
+          <div class="panel">
             <div class="glass">
               <b>Launch system</b>
-              <div style="margin-top:8px;color:rgba(219,234,254,0.72);line-height:1.6;">Visual assets, motion direction, and messaging aligned around a single structured product story.</div>
+              <p>Visual assets, motion direction, and messaging aligned around a single structured product story.</p>
             </div>
             <div class="mini-grid">
-              <div class="metric"><strong>Green</strong><span>trust accent</span></div>
               <div class="metric"><strong>Blue</strong><span>product anchor</span></div>
+              <div class="metric"><strong>Green</strong><span>trust accent</span></div>
             </div>
-            <div class="glass" style="min-height: 164px; display: grid; gap: 12px; align-content: start;">
+            <div class="progress">
+              <b>Pipeline</b>
+              <div class="bar"><span style="width: 82%"></span></div>
+              <div class="bar"><span style="width: 64%"></span></div>
+              <div class="bar"><span style="width: 91%"></span></div>
+            </div>
+            <div class="tile">
               <b>Hero card stack</b>
-              <div style="height: 12px; border-radius: 999px; background: rgba(219,234,254,0.14);"></div>
-              <div style="height: 12px; width: 78%; border-radius: 999px; background: rgba(219,234,254,0.14);"></div>
-              <div style="height: 12px; width: 56%; border-radius: 999px; background: rgba(219,234,254,0.14);"></div>
+              <div class="row"></div>
+              <div class="row"></div>
+              <div class="row"></div>
             </div>
           </div>
         </div>

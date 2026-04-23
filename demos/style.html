@@ -6,86 +6,171 @@
     <title>TensorsLab Style Demo</title>
     <style>
       :root {
-        --bg: #f8fbff;
-        --ink: #0f172a;
-        --muted: #64748b;
-        --line: rgba(148,163,184,0.24);
+        --bg: #f6fbff;
+        --bg2: #eef6ff;
+        --ink: #0d2742;
+        --muted: #60748a;
+        --line: rgba(13, 39, 66, 0.1);
         --blue: #2563eb;
         --green: #0f766e;
-        --white: #ffffff;
-        --panel: rgba(255,255,255,0.8);
+        --panel: rgba(255, 255, 255, 0.8);
+        --shadow: 0 22px 50px rgba(13, 39, 66, 0.08);
       }
-      html, body { margin: 0; min-height: 100%; background: linear-gradient(180deg, #f8fbff 0%, #eef7ff 100%); color: var(--ink); font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+      html, body {
+        margin: 0;
+        min-height: 100%;
+        background:
+          radial-gradient(circle at 10% 8%, rgba(37, 99, 235, 0.1), transparent 26%),
+          radial-gradient(circle at 86% 14%, rgba(15, 118, 110, 0.12), transparent 24%),
+          linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+        color: var(--ink);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      }
       body { padding: 28px; }
-      .intro { display: grid; gap: 10px; margin-bottom: 22px; }
-      .intro h1 { margin: 0; font-size: clamp(32px, 4vw, 52px); letter-spacing: -0.04em; }
-      .intro p { margin: 0; max-width: 72ch; color: var(--muted); line-height: 1.7; }
-      .palette { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
-      .swatch { display: inline-flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 999px; background: var(--panel); border: 1px solid var(--line); }
-      .swatch i { width: 14px; height: 14px; border-radius: 999px; display: inline-block; }
-      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-      .card {
-        position: relative;
-        min-height: 260px;
-        padding: 18px;
-        border-radius: 24px;
-        background: var(--panel);
-        border: 1px solid var(--line);
-        box-shadow: 0 20px 40px rgba(15,23,42,0.06);
-        overflow: hidden;
+      .intro {
+        display: grid;
+        gap: 10px;
+        max-width: 980px;
+        margin-bottom: 22px;
       }
-      .card h2 { margin: 0 0 12px; font-size: 18px; }
-      .card p { margin: 0; color: var(--muted); line-height: 1.65; }
-      .card .bar { height: 10px; border-radius: 999px; background: rgba(15,118,110,0.12); margin-top: 16px; }
-      .card .bar:nth-child(3) { width: 78%; }
-      .card .bar:nth-child(4) { width: 54%; }
-      .card .bar:nth-child(5) { width: 86%; }
-      .pill {
+      .intro h1 {
+        margin: 0;
+        font-size: clamp(34px, 4.4vw, 58px);
+        letter-spacing: -0.05em;
+        line-height: 0.98;
+      }
+      .intro p {
+        margin: 0;
+        max-width: 74ch;
+        color: var(--muted);
+        line-height: 1.75;
+        font-size: 17px;
+      }
+      .tag {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 7px 10px;
+        width: fit-content;
+        padding: 8px 12px;
         border-radius: 999px;
-        background: rgba(37,99,235,0.08);
+        background: rgba(37, 99, 235, 0.08);
         color: var(--blue);
         font-size: 12px;
         font-weight: 800;
         letter-spacing: 0.08em;
         text-transform: uppercase;
       }
-      .stacked {
+      .palette {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+      }
+      .swatch {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 999px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+      }
+      .swatch i {
+        width: 14px;
+        height: 14px;
+        border-radius: 999px;
+        display: inline-block;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+      }
+      .card {
+        position: relative;
+        min-height: 300px;
+        padding: 20px;
+        border-radius: 28px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .card h2 { margin: 0 0 10px; font-size: 19px; letter-spacing: -0.02em; }
+      .card p { margin: 0; color: var(--muted); line-height: 1.68; }
+      .accent {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 10px;
+        border-radius: 999px;
+        background: rgba(15, 118, 110, 0.1);
+        color: var(--green);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .bars {
         display: grid;
         gap: 10px;
-        margin-top: 14px;
-      }
-      .stacked div {
-        height: 16px;
-        border-radius: 999px;
-        background: linear-gradient(90deg, rgba(37,99,235,0.08), rgba(15,118,110,0.08));
-      }
-      .stacked div:nth-child(2) { width: 78%; }
-      .stacked div:nth-child(3) { width: 62%; }
-      .stacked div:nth-child(4) { width: 90%; }
-      .frame {
         margin-top: 18px;
-        border-radius: 20px;
-        background: linear-gradient(180deg, rgba(7,34,61,0.96), rgba(7,34,61,0.88));
+      }
+      .bars div {
+        height: 12px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, rgba(37, 99, 235, 0.12), rgba(15, 118, 110, 0.1));
+      }
+      .bars div:nth-child(1) { width: 88%; }
+      .bars div:nth-child(2) { width: 66%; }
+      .bars div:nth-child(3) { width: 74%; }
+      .bars div:nth-child(4) { width: 92%; }
+      .preview {
+        margin-top: 18px;
+        border-radius: 22px;
+        background: linear-gradient(180deg, rgba(10, 31, 51, 0.96), rgba(10, 31, 51, 0.88));
         color: #dbeafe;
-        height: 120px;
-        padding: 16px;
+        min-height: 150px;
+        padding: 18px;
         display: grid;
         align-content: start;
-        gap: 8px;
+        gap: 10px;
       }
-      .frame strong { font-size: 16px; }
-      .frame span { color: rgba(219,234,254,0.72); font-size: 13px; line-height: 1.55; }
+      .preview strong { font-size: 17px; }
+      .preview span { color: rgba(219,234,254,0.74); font-size: 13px; line-height: 1.55; }
+      .gridlines {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(148,163,184,0.12) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(148,163,184,0.12) 1px, transparent 1px);
+        background-size: 40px 40px;
+        mask-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0));
+        pointer-events: none;
+      }
+      .legend {
+        display: grid;
+        gap: 10px;
+        margin-top: 18px;
+      }
+      .legend .item {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,0.72);
+      }
+      .legend .item b { font-size: 14px; }
+      .legend .item span { color: var(--muted); font-size: 13px; }
     </style>
   </head>
   <body>
     <div class="intro">
-      <div class="pill">Style system</div>
+      <div class="tag">Style system</div>
       <h1>TensorsLab visual style board</h1>
-      <p>This page shows a more concrete visual language: blue for product clarity, green for trust accents, and white for spacious editorial breathing room. It can be used as a style anchor when the skill needs to generate a homepage, deck, or launch visual with a stronger brand feel.</p>
+      <p>This board presents a product-grade visual language for TensorsLab: a blue-led interface tone for clarity, green accents for trust and confirmation, and generous white space to keep the layout readable. The page is intentionally more polished so it can act as a usable visual reference rather than just a mood note.</p>
       <div class="palette">
         <div class="swatch"><i style="background:#2563eb"></i>Blue / #2563EB</div>
         <div class="swatch"><i style="background:#0f766e"></i>Green / #0F766E</div>
@@ -94,22 +179,29 @@
     </div>
     <section class="grid">
       <article class="card">
-        <div class="pill">Product page</div>
+        <div class="gridlines"></div>
+        <div class="accent">Product page</div>
         <h2>Industrial clarity</h2>
         <p>Use dense but controlled layouts, strong hierarchy, and minimal decoration to communicate scale and reliability.</p>
-        <div class="stacked"><div></div><div></div><div></div><div></div></div>
+        <div class="bars"><div></div><div></div><div></div><div></div></div>
       </article>
       <article class="card">
-        <div class="pill">Launch page</div>
+        <div class="gridlines"></div>
+        <div class="accent">Launch page</div>
         <h2>Confident hero</h2>
         <p>Use a bold focal point, concise messaging, and a crisp gradient or panel system to frame the launch story.</p>
-        <div class="frame"><strong>Launch ready</strong><span>The hero demo can be extended into a longer landing page or promo deck without changing the overall language.</span></div>
+        <div class="preview"><strong>Launch ready</strong><span>Hero, launch deck, and announcement banners can all share this same structure without feeling generic.</span></div>
       </article>
       <article class="card">
-        <div class="pill">Deck direction</div>
+        <div class="gridlines"></div>
+        <div class="accent">Deck direction</div>
         <h2>Editorial presentation</h2>
         <p>Keep plenty of white space, readable body copy, and easy-to-scan blocks so the content feels polished but not decorative.</p>
-        <div class="stacked"><div></div><div></div><div></div></div>
+        <div class="legend">
+          <div class="item"><b>Spacing</b><span>airy but structured</span></div>
+          <div class="item"><b>Color</b><span>blue + green accents</span></div>
+          <div class="item"><b>Tone</b><span>clear, calm, trustworthy</span></div>
+        </div>
       </article>
     </section>
   </body>
