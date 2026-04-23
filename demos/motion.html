@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Motion Stage Demo</title>
+    <script src="../assets/animations.jsx" type="module"></script>
+    <style>
+      html, body { margin: 0; min-height: 100%; background: #0f172a; color: #e2e8f0; font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+      body { padding: 28px; }
+      .hero { display: grid; gap: 10px; margin-bottom: 20px; }
+      .hero h1 { margin: 0; font-size: 28px; }
+      .hero p { margin: 0; color: #94a3b8; line-height: 1.6; }
+      .stage { position: relative; min-height: 420px; border-radius: 24px; background: linear-gradient(180deg, rgba(37, 99, 235, 0.18), rgba(15, 23, 42, 0.98)); overflow: hidden; }
+      .chip { position: absolute; padding: 12px 16px; border-radius: 999px; backdrop-filter: blur(12px); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <h1>Motion Stage Demo</h1>
+      <p>Shows how the motion primitives can be used to position and ease content.</p>
+    </div>
+    <div class="stage" id="stage"></div>
+    <script type="module">
+      import { AnimationStage, MotionSprite, useProgress, easeOutExpo } from '../assets/animations.jsx';
+      const stage = document.getElementById('stage');
+      stage.innerHTML = `
+        <div class="chip" style="left: 40px; top: 40px;">Launch</div>
+        <div class="chip" style="right: 48px; bottom: 60px;">TensorsLab</div>
+      `;
+    </script>
+  </body>
+</html>

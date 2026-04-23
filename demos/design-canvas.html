@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Design Canvas Demo</title>
+    <script src="../assets/design_canvas.jsx" type="module"></script>
+    <style>
+      html, body { margin: 0; min-height: 100%; background: #f8fafc; font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+      body { padding: 28px; }
+      .hero { display: grid; gap: 12px; margin-bottom: 20px; }
+      .hero h1 { margin: 0; font-size: 28px; }
+      .hero p { margin: 0; color: #64748b; line-height: 1.6; }
+      .sample { display: grid; gap: 14px; padding: 18px; border: 1px solid rgba(148, 163, 184, 0.24); border-radius: 18px; background: #fff; box-shadow: 0 16px 30px rgba(15, 23, 42, 0.06); }
+      .sample .label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 800; color: #475569; }
+      .sample .box { height: 220px; border-radius: 16px; background: linear-gradient(135deg, #dbeafe, #ecfeff); }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <h1>Design Canvas Demo</h1>
+      <p>Use this page to compare multiple visual directions in parallel.</p>
+    </div>
+    <div id="mount"></div>
+    <script type="module">
+      import { DesignCanvas, VariantCard } from '../assets/design_canvas.jsx';
+
+      const mount = document.getElementById('mount');
+      mount.innerHTML = '';
+
+      const root = document.createElement('div');
+      mount.appendChild(root);
+
+      root.innerHTML = `
+        <div id="canvas"></div>
+      `;
+
+      const container = root.querySelector('#canvas');
+      container.replaceWith(document.createElement('div'));
+      const canvas = root.querySelector('div');
+      canvas.style.display = 'grid';
+      canvas.style.gridTemplateColumns = 'repeat(2, minmax(0, 1fr))';
+      canvas.style.gap = '18px';
+
+      const variants = [
+        ['Variant A', 'Industrial product page'],
+        ['Variant B', 'Editorial deck direction'],
+        ['Variant C', 'Launch hero treatment'],
+        ['Variant D', 'Info-dense explainer'],
+      ];
+
+      variants.forEach(([label, text]) => {
+        const card = document.createElement('section');
+        card.className = 'sample';
+        card.innerHTML = `<div class="label">${label}</div><div>${text}</div><div class="box"></div>`;
+        canvas.appendChild(card);
+      });
+    </script>
+  </body>
+</html>

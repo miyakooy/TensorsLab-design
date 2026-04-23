@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TensorsLab Design Demos</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f8fafc;
+        --card: #ffffff;
+        --ink: #0f172a;
+        --muted: #64748b;
+        --line: rgba(148, 163, 184, 0.24);
+        --brand: #1d4ed8;
+        --brand-2: #0f766e;
+      }
+      html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--ink); font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+      body { padding: 32px; }
+      main { display: grid; gap: 24px; }
+      header { display: grid; gap: 8px; }
+      header h1 { margin: 0; font-size: 28px; }
+      header p { margin: 0; color: var(--muted); line-height: 1.6; }
+      .grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+      .card { display: grid; gap: 12px; padding: 18px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); box-shadow: 0 16px 36px rgba(15, 23, 42, 0.06); }
+      .card a { color: inherit; text-decoration: none; }
+      .badge { display: inline-flex; align-items: center; gap: 8px; width: fit-content; padding: 6px 10px; border-radius: 999px; background: rgba(29, 78, 216, 0.08); color: var(--brand); font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+      .meta { color: var(--muted); font-size: 13px; line-height: 1.6; }
+      .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+      .actions a { padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); color: var(--ink); background: #fff; text-decoration: none; font-size: 13px; font-weight: 600; }
+      .actions a.primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #fff; border-color: transparent; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>TensorsLab Design Demos</h1>
+        <p>Entry points for the real starter-component demos. Each demo is intentionally small and reusable, so the skill can inspect them as working references rather than static notes.</p>
+      </header>
+      <section class="grid" id="demo-grid"></section>
+    </main>
+    <script>
+      const demos = [
+        {
+          title: 'Design Canvas',
+          badge: 'compare',
+          description: 'Side-by-side variant board for layout and visual direction comparison.',
+          href: './design-canvas.html',
+          secondary: './design-canvas.html#mobile',
+        },
+        {
+          title: 'Deck Stage',
+          badge: 'slides',
+          description: 'Single-file deck shell with keyboard navigation and slide counter.',
+          href: './deck-stage.html',
+          secondary: './deck-stage.html#notes',
+        },
+        {
+          title: 'Device Frames',
+          badge: 'frames',
+          description: 'A compact gallery of iOS, Android, browser, and desktop frames.',
+          href: './frames.html',
+          secondary: './frames.html#browser',
+        },
+        {
+          title: 'Motion Stage',
+          badge: 'motion',
+          description: 'Animation primitives and sample motion cards using the shared easing helpers.',
+          href: './motion.html',
+          secondary: './motion.html#sprite',
+        },
+      ];
+
+      const grid = document.getElementById('demo-grid');
+      grid.innerHTML = demos.map((demo) => `
+        <article class="card">
+          <div class="badge">${demo.badge}</div>
+          <a href="${demo.href}" target="_blank" rel="noreferrer"><h2>${demo.title}</h2></a>
+          <div class="meta">${demo.description}</div>
+          <div class="actions">
+            <a class="primary" href="${demo.href}" target="_blank" rel="noreferrer">Open demo</a>
+            <a href="${demo.secondary}" target="_blank" rel="noreferrer">Alt entry</a>
+          </div>
+        </article>
+      `).join('');
+    </script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Device Frame Demo</title>
+    <script src="../assets/ios_frame.jsx" type="module"></script>
+    <script src="../assets/android_frame.jsx" type="module"></script>
+    <script src="../assets/browser_window.jsx" type="module"></script>
+    <script src="../assets/macos_window.jsx" type="module"></script>
+    <style>
+      html, body { margin: 0; min-height: 100%; background: #f8fafc; font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+      body { padding: 28px; }
+      .grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+      .card { display: grid; gap: 12px; }
+      .card h2 { margin: 0; font-size: 16px; }
+      .frame-sample { min-height: 240px; border-radius: 18px; border: 1px dashed rgba(148, 163, 184, 0.32); background: linear-gradient(180deg, #fff, #f8fafc); }
+    </style>
+  </head>
+  <body>
+    <div class="grid">
+      <div class="card"><h2>iOS Frame</h2><div class="frame-sample">Reference mount point</div></div>
+      <div class="card"><h2>Android Frame</h2><div class="frame-sample">Reference mount point</div></div>
+      <div class="card"><h2>Browser Window</h2><div class="frame-sample">Reference mount point</div></div>
+      <div class="card"><h2>macOS Window</h2><div class="frame-sample">Reference mount point</div></div>
+    </div>
+  </body>
+</html>
