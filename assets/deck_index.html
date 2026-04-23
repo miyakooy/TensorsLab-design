@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TensorsLab Deck Index</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f8fafc;
+        --ink: #0f172a;
+        --muted: #64748b;
+        --card: #ffffff;
+        --line: rgba(148, 163, 184, 0.24);
+      }
+      html, body {
+        margin: 0;
+        min-height: 100%;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+      body {
+        padding: 32px;
+      }
+      .deck-index {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+      .deck-link {
+        display: grid;
+        gap: 8px;
+        padding: 18px;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: var(--card);
+        text-decoration: none;
+        color: inherit;
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+      }
+      .deck-link strong {
+        font-size: 15px;
+      }
+      .deck-link span {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .deck-toolbar {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+      .deck-toolbar input {
+        flex: 1;
+        min-width: 240px;
+        padding: 12px 14px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: #fff;
+        color: var(--ink);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="deck-toolbar">
+        <strong>TensorsLab Deck Index</strong>
+        <input id="deck-filter" type="search" placeholder="Filter slide manifests" />
+      </div>
+      <section id="deck-index" class="deck-index"></section>
+    </main>
+    <script>
+      const manifests = Array.isArray(window.TENSRSLAB_DECKS) ? window.TENSRSLAB_DECKS : [];
+      const index = document.getElementById('deck-index');
+      const filter = document.getElementById('deck-filter');
+
+      const render = () => {
+        const query = filter.value.trim().toLowerCase();
+        index.innerHTML = '';
+        manifests
+          .filter((item) => !query || `${item.title} ${item.description} ${item.href}`.toLowerCase().includes(query))
+          .forEach((item) => {
+            const link = document.createElement('a');
+            link.className = 'deck-link';
+            link.href = item.href;
+            link.target = '_blank';
+            link.rel = 'noreferrer';
+            link.innerHTML = `<strong>${item.title}</strong><span>${item.description || ''}</span><span>${item.href}</span>`;
+            index.appendChild(link);
+          });
+      };
+
+      filter.addEventListener('input', render);
+      render();
+    </script>
+  </body>
+</html>
