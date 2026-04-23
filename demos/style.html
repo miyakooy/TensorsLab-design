@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>TensorsLab Style Demo</title>
+    <title>TensorsLab Style Board</title>
+    <meta name="description" content="A product-grade style board for TensorsLab Design: colors, type direction, layout rhythm, and presentation tone." />
     <style>
       :root {
         --bg: #f6fbff;
@@ -88,7 +89,7 @@
       }
       .card {
         position: relative;
-        min-height: 300px;
+        min-height: 320px;
         padding: 20px;
         border-radius: 28px;
         background: var(--panel);
@@ -164,13 +165,22 @@
       }
       .legend .item b { font-size: 14px; }
       .legend .item span { color: var(--muted); font-size: 13px; }
+      .hero-strip {
+        margin-top: 18px;
+        padding: 18px;
+        border-radius: 24px;
+        background: linear-gradient(135deg, rgba(37,99,235,0.92), rgba(15,118,110,0.92));
+        color: #fff;
+      }
+      .hero-strip strong { display: block; font-size: 18px; margin-bottom: 10px; }
+      .hero-strip span { display: block; color: rgba(255,255,255,0.82); line-height: 1.6; }
     </style>
   </head>
   <body>
     <div class="intro">
       <div class="tag">Style system</div>
       <h1>TensorsLab visual style board</h1>
-      <p>This board presents a product-grade visual language for TensorsLab: a blue-led interface tone for clarity, green accents for trust and confirmation, and generous white space to keep the layout readable. The page is intentionally more polished so it can act as a usable visual reference rather than just a mood note.</p>
+      <p>This board defines a more product-grade visual language for TensorsLab: a blue-led interface tone for clarity, green accents for trust and confirmation, and generous white space to keep the layout readable. It is polished enough to act as a usable visual reference for homepage, launch, and deck design.</p>
       <div class="palette">
         <div class="swatch"><i style="background:#2563eb"></i>Blue / #2563EB</div>
         <div class="swatch"><i style="background:#0f766e"></i>Green / #0F766E</div>
@@ -189,8 +199,8 @@
         <div class="gridlines"></div>
         <div class="accent">Launch page</div>
         <h2>Confident hero</h2>
-        <p>Use a bold focal point, concise messaging, and a crisp gradient or panel system to frame the launch story.</p>
-        <div class="preview"><strong>Launch ready</strong><span>Hero, launch deck, and announcement banners can all share this same structure without feeling generic.</span></div>
+        <p>Use a bold focal point, concise messaging, and a crisp panel system to frame the launch story.</p>
+        <div class="hero-strip"><strong>Launch ready</strong><span>The hero demo can extend into a longer landing page or promo deck without changing the overall language.</span></div>
       </article>
       <article class="card">
         <div class="gridlines"></div>
