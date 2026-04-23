@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>TensorsLab · AI Content Infrastructure</title>
-    <meta name="description" content="TensorsLab Design demo: a product-grade hero for AI content infrastructure, launch pages, pricing, and docs." />
+    <meta name="description" content="TensorsLab Design demo: a modular homepage hero with switchable patterns." />
     <style>
       :root {
         --bg: #f6fbff;
@@ -28,6 +28,30 @@
         font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       }
       body { padding: 28px; }
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 12px 16px;
+        margin-bottom: 16px;
+        border-radius: 14px;
+        background: rgba(255,255,255,0.9);
+        border: 1px solid var(--line);
+        font-size: 13px;
+      }
+      .controls button {
+        padding: 6px 12px;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        background: #fff;
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .controls button.active {
+        background: var(--blue);
+        color: #fff;
+        border-color: var(--blue);
+      }
       .shell {
         position: relative;
         overflow: hidden;
@@ -37,9 +61,12 @@
         box-shadow: var(--shadow);
         backdrop-filter: blur(20px);
       }
+      .topbar, .foot { display: none; }
+      .hero-mode[data-mode="default"] .topbar,
+      .hero-mode[data-mode="default"] .foot { display: grid; }
       .topbar {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr auto;
         align-items: center;
         gap: 20px;
         padding: 18px 24px;
@@ -68,15 +95,24 @@
       }
       .hero {
         display: grid;
-        grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
         gap: 28px;
         padding: 36px 28px 28px;
-        align-items: stretch;
       }
-      .left {
-        display: grid;
-        align-content: start;
+      .hero-wide {
+        grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
       }
+      .hero-stack {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-center {
+        grid-template-columns: 1fr;
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .left { display: grid; align-content: start; }
+      .hero-stack .left, .hero-center .left { align-content: center; justify-items: center; }
       .eyebrow {
         display: inline-flex;
         align-items: center;
@@ -98,6 +134,7 @@
         line-height: 0.92;
         letter-spacing: -0.06em;
       }
+      .hero-center h1 { max-width: 18ch; }
       .lede {
         max-width: 54ch;
         margin: 0;
@@ -111,6 +148,7 @@
         gap: 12px;
         margin-top: 24px;
       }
+      .hero-center .actions { justify-content: center; }
       .btn {
         display: inline-flex;
         align-items: center;
@@ -135,6 +173,7 @@
         gap: 12px;
         margin-top: 28px;
       }
+      .hero-center .stats { justify-content: center; }
       .stat {
         padding: 14px 16px;
         border-radius: 18px;
@@ -150,27 +189,11 @@
         background: linear-gradient(180deg, rgba(7, 32, 51, 0.98), rgba(7, 32, 51, 0.9));
         color: #dbeafe;
         padding: 22px;
+        min-height: 320px;
       }
-      .right::before,
-      .right::after {
-        content: '';
-        position: absolute;
-        border-radius: 999px;
-        filter: blur(18px);
-      }
-      .right::before {
-        width: 210px;
-        height: 210px;
-        top: 36px;
-        right: 30px;
-        background: rgba(37, 99, 235, 0.26);
-      }
-      .right::after {
-        width: 240px;
-        height: 240px;
-        left: -28px;
-        bottom: 0;
-        background: rgba(15, 118, 110, 0.24);
+      .right.full {
+        grid-column: 1 / -1;
+        min-height: 180px;
       }
       .panel {
         position: relative;
@@ -178,67 +201,24 @@
         display: grid;
         gap: 14px;
       }
-      .glass,
-      .metric,
-      .tile {
+      .glass, .metric, .tile, .progress {
         background: rgba(255,255,255,0.08);
         border: 1px solid rgba(255,255,255,0.12);
         backdrop-filter: blur(14px);
-      }
-      .glass {
         padding: 16px;
         border-radius: 18px;
       }
-      .glass p {
-        margin: 8px 0 0;
-        color: rgba(219,234,254,0.76);
-        line-height: 1.6;
-      }
-      .mini-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px;
-      }
-      .metric {
-        padding: 16px;
-        border-radius: 18px;
-      }
+      .glass p { margin: 8px 0 0; color: rgba(219,234,254,0.76); line-height: 1.6; }
+      .mini-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
       .metric strong { display: block; font-size: 28px; }
       .metric span { color: rgba(219,234,254,0.72); font-size: 12px; }
-      .progress {
-        display: grid;
-        gap: 12px;
-        padding: 16px;
-        border-radius: 18px;
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(255,255,255,0.1);
-      }
-      .bar {
-        height: 10px;
-        border-radius: 999px;
-        background: rgba(219,234,254,0.12);
-        overflow: hidden;
-      }
-      .bar span {
-        display: block;
-        height: 100%;
-        border-radius: inherit;
-        background: linear-gradient(90deg, rgba(37,99,235,0.9), rgba(15,118,110,0.9));
-      }
-      .tile {
-        display: grid;
-        gap: 10px;
-        padding: 16px;
-        border-radius: 18px;
-      }
-      .tile .row {
-        height: 12px;
-        border-radius: 999px;
-        background: rgba(219,234,254,0.12);
-      }
+      .bar { height: 10px; border-radius: 999px; background: rgba(219,234,254,0.12); overflow: hidden; margin-top: 8px; }
+      .bar span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, rgba(37,99,235,0.9), rgba(15,118,110,0.9)); }
+      .tile { display: grid; gap: 10px; }
+      .tile .row { height: 12px; border-radius: 999px; background: rgba(219,234,254,0.12); }
+      .tile .row:nth-child(1) { width: 100%; }
       .tile .row:nth-child(2) { width: 82%; }
       .tile .row:nth-child(3) { width: 64%; }
-      .tile .row:nth-child(4) { width: 74%; }
       .foot {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -254,7 +234,7 @@
       .foot-card b { display: block; margin-bottom: 8px; }
       .foot-card span { color: var(--muted); font-size: 13px; line-height: 1.55; }
       @media (max-width: 1040px) {
-        .hero { grid-template-columns: 1fr; }
+        .hero-wide { grid-template-columns: 1fr; }
         .stats, .foot { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       }
       @media (max-width: 640px) {
@@ -265,19 +245,26 @@
     </style>
   </head>
   <body>
-    <div class="shell">
+    <div class="controls">
+      <span>Layout:</span>
+      <button data-layout="default" class="active">Hero + Visual</button>
+      <button data-layout="stack">Stacked</button>
+      <button data-layout="wide">Wide Hero</button>
+      <button data-layout="minimal">Minimal</button>
+    </div>
+    <div class="shell hero-mode" data-mode="default">
       <div class="topbar">
         <div class="brand"><span class="mark"></span><span>TensorsLab</span></div>
         <div class="nav"><span>Models</span><span>Studio</span><span>Docs</span></div>
       </div>
-      <section class="hero">
+      <section class="hero hero-wide">
         <div class="left">
           <div class="eyebrow">AI content infrastructure</div>
           <h1>Design that feels industrial, clear, and ready to ship.</h1>
-          <p class="lede" data-slot="mode-copy">A more final homepage hero concept for TensorsLab Design. It balances product trust, clear hierarchy, and a calm system feel that can scale into launch pages, pricing, and docs.</p>
+          <p class="lede">A product-grade homepage hero concept for TensorsLab. It balances product trust, clear hierarchy, and a calm system feel that can scale into launch pages, pricing, and docs.</p>
           <div class="actions">
-            <a class="btn primary" href="#" data-primary>Start building</a>
-            <a class="btn" href="#" data-secondary>Explore docs</a>
+            <a class="btn primary" href="#">Start building</a>
+            <a class="btn" href="#">Explore docs</a>
           </div>
           <div class="stats">
             <div class="stat"><strong>12x</strong><span>visual throughput</span></div>
@@ -301,12 +288,6 @@
               <div class="bar"><span style="width: 64%"></span></div>
               <div class="bar"><span style="width: 91%"></span></div>
             </div>
-            <div class="tile">
-              <b>Hero card stack</b>
-              <div class="row"></div>
-              <div class="row"></div>
-              <div class="row"></div>
-            </div>
           </div>
         </div>
       </section>
@@ -316,40 +297,41 @@
         <div class="foot-card"><b>Studio modes</b><span>Prototype, deck, and motion share one design language.</span></div>
         <div class="foot-card"><b>Scalable system</b><span>The same hero can extend into pricing, docs, and launch pages.</span></div>
       </section>
-      <script>
-        const modes = {
-          hero: {
-            title: 'Design that feels industrial, clear, and ready to ship.',
-            copy: 'A more final homepage hero concept for TensorsLab Design. It balances product trust, clear hierarchy, and a calm system feel that can scale into launch pages, pricing, and docs.',
-            primary: 'Start building',
-            secondary: 'Explore docs',
-          },
-          docs: {
-            title: 'Docs that feel readable, technical, and trustworthy.',
-            copy: 'A docs-first variant for TensorsLab Design. It makes the product feel explained, structured, and easy to adopt for developers and operators.',
-            primary: 'Read the docs',
-            secondary: 'View API',
-          },
-          model: {
-            title: 'Models that feel clear, credible, and easy to compare.',
-            copy: 'A model-catalog variant for TensorsLab Design. It shifts the emphasis toward capabilities, benchmarks, and use-case clarity.',
-            primary: 'Try model',
-            secondary: 'Compare models',
-          },
-        };
-
-        const title = document.querySelector('h1');
-        const copy = document.querySelector('[data-slot="mode-copy"]');
-        const primary = document.querySelector('[data-primary]');
-        const secondary = document.querySelector('[data-secondary]');
-        const params = new URLSearchParams(window.location.search);
-        const mode = modes[params.get('mode')] ? params.get('mode') : 'hero';
-        const preset = modes[mode];
-        title.textContent = preset.title;
-        copy.textContent = preset.copy;
-        primary.textContent = preset.primary;
-        secondary.textContent = preset.secondary;
-      </script>
     </div>
+    <script>
+      const layouts = {
+        default: { heroClass: 'hero-wide', showRight: true, showFoot: true },
+        stack: { heroClass: 'hero-stack', showRight: false, showFoot: true },
+        wide: { heroClass: 'hero-wide', showRight: false, showFoot: false },
+        minimal: { heroClass: 'hero-center', showRight: false, showFoot: false },
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      const urlLayout = params.get('layout');
+      
+      function setLayout(name) {
+        const cfg = layouts[name] || layouts.default;
+        const hero = document.querySelector('.hero');
+        const right = document.querySelector('.right');
+        const foot = document.querySelector('.foot');
+        
+        hero.className = 'hero ' + cfg.heroClass;
+        right.style.display = cfg.showRight ? 'block' : 'none';
+        foot.style.display = cfg.showFoot ? 'grid' : 'none';
+        
+        document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
+        document.querySelector('[data-layout="' + name + '"]').classList.add('active');
+        
+        const url = new URL(window.location);
+        url.searchParams.set('layout', name);
+        window.history.replaceState({}, '', url);
+      }
+
+      document.querySelectorAll('.controls button').forEach(btn => {
+        btn.addEventListener('click', () => setLayout(btn.dataset.layout));
+      });
+
+      if (layouts[urlLayout]) setLayout(urlLayout);
+    </script>
   </body>
 </html>
