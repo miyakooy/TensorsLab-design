@@ -13,7 +13,7 @@ language: zh-CN
 高保真原型、营销页面、演示Deck、信息图表——为TensorsLab产品设计一枚skill。
 
 ```
-npx skills add miyakooy/TensorsLab--design -y
+npx skills add miyakooy/TensorsLab-design -y
 ```
 
 然后在agent里说话：
@@ -30,10 +30,10 @@ npx skills add miyakooy/TensorsLab--design -y
 
 | Agent | 安装命令 |
 |-------|----------|
-| Claude Code | `/plugin marketplace add miyakooy/TensorsLab--design` |
-| Cursor / Codex / Cline | `npx skills add miyakooy/TensorsLab--design -y` |
-| OpenClaw | `clawhub install miyakooy/TensorsLab--design` |
-| 通用 | `npx skills add miyakooy/TensorsLab--design -y` |
+| Claude Code | `/plugin marketplace add miyakooy/TensorsLab-design` |
+| Cursor / Codex / Cline | `npx skills add miyakooy/TensorsLab-design -y` |
+| OpenClaw | `clawhub install miyakooy/TensorsLab-design` |
+| 通用 | `npx skills add miyakooy/TensorsLab-design -y` |
 
 ---
 

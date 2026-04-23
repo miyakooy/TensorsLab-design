@@ -13,7 +13,7 @@ language: en-US
 High-fidelity prototypes, marketing pages, presentation decks, infographics — a design skill for TensorsLab AI products.
 
 ```
-npx skills add miyakooy/TensorsLab--design -y
+npx skills add miyakooy/TensorsLab-design -y
 ```
 
 Then talk to your agent:
@@ -30,10 +30,10 @@ Then talk to your agent:
 
 | Agent | Install Command |
 |-------|---------------|
-| Claude Code | `/plugin marketplace add miyakooy/TensorsLab--design` |
-| Cursor / Codex / Cline | `npx skills add miyakooy/TensorsLab--design -y` |
-| OpenClaw | `clawhub install miyakooy/TensorsLab--design` |
-| Universal | `npx skills add miyakooy/TensorsLab--design -y` |
+| Claude Code | `/plugin marketplace add miyakooy/TensorsLab-design` |
+| Cursor / Codex / Cline | `npx skills add miyakooy/TensorsLab-design -y` |
+| OpenClaw | `clawhub install miyakooy/TensorsLab-design` |
+| Universal | `npx skills add miyakooy/TensorsLab-design -y` |
 
 ---
 
