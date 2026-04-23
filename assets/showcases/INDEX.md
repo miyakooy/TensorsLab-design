@@ -12,4 +12,4 @@ This file should point to the curated showcase examples for TensorsLab Design.
 
 ## Rule
 
-If a showcase is too tightly bound to huashu-design’s identity, rebuild it for TensorsLab instead of copying it directly.
+If a showcase is too tightly bound to the source project’s identity, rebuild it for TensorsLab instead of copying it directly.

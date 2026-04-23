@@ -1,11 +1,11 @@
 # Internal reconstruction checklist
 
-This checklist is for maintainers rebuilding `huashu-design` into TensorsLab Design.
+This checklist is for maintainers rebuilding an external design skill into TensorsLab Design.
 
 ## 1. Core goals
 
 - [ ] Preserve the full design capability set
-- [ ] Remove every huashu-specific identity trace
+- [ ] Remove every source-project-specific identity trace
 - [ ] Keep the repo clean-room and TensorsLab-native
 - [ ] Avoid public references to the migration notes
 
@@ -26,7 +26,7 @@ This checklist is for maintainers rebuilding `huashu-design` into TensorsLab Des
 - [ ] brand spec
 - [ ] style catalog
 - [ ] showcase gallery
-- [ ] all huashu-branded demos
+- [ ] all source-project-branded demos
 - [ ] all identity-heavy launch visuals
 
 ## 4. What may be adapted
@@ -40,10 +40,10 @@ This checklist is for maintainers rebuilding `huashu-design` into TensorsLab Des
 
 ## 5. What must be dropped
 
-- [ ] huashu / 花叔 naming
-- [ ] huashu-specific story framing
-- [ ] huashu showcase captions
-- [ ] any visual that still feels like huashu after relabeling
+- [ ] source-project naming
+- [ ] source-project-specific story framing
+- [ ] source-project showcase captions
+- [ ] any visual that still feels tied to the source project after relabeling
 
 ## 6. Asset handoff tasks
 
@@ -60,10 +60,10 @@ This checklist is for maintainers rebuilding `huashu-design` into TensorsLab Des
 - [ ] Classify every file as replicate / adapt / rebuild / drop
 - [ ] Replace public references with neutral wording
 - [ ] Move any migration rationale into `_internal/`
-- [ ] Verify no public doc mentions the migration list
+- [ ] Verify no public doc mentions the internal migration list
 - [ ] Verify the public docs still describe the skill fully
 - [ ] Run a clean-room pass on examples and showcase assets
-- [ ] Confirm no huashu-specific demo remains
+- [ ] Confirm no source-project-specific demo remains
 
 ## 8. Release readiness
 

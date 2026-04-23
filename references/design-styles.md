@@ -2,7 +2,7 @@
 
 This file is the style catalog for TensorsLab Design.
 
-It is the replacement for huashu-design’s style fallback library: when the user does not know the exact visual direction, the skill should offer a small set of clearly different options instead of guessing one average style.
+It is the replacement for the source project’s style fallback library: when the user does not know the exact visual direction, the skill should offer a small set of clearly different options instead of guessing one average style.
 
 ## What “design style reference” means
 

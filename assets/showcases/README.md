@@ -21,4 +21,4 @@ Showcases help the skill do three things:
 
 ## Manual migration note
 
-Any showcase copied from huashu-design must be reviewed before reuse. If it is too tied to the original project’s identity, rebuild it for TensorsLab instead.
+Any showcase copied from the source project must be reviewed before reuse. If it is too tied to the source project’s identity, rebuild it for TensorsLab instead.

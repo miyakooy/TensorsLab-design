@@ -1,14 +1,14 @@
 # Case migration map
 
-This file classifies huashu-design examples for TensorsLab migration.
+This file classifies original-source examples for TensorsLab migration.
 
 ## Clean-room rules
 
 These rules are mandatory across the whole reconstruction:
 
 1. Preserve **capabilities**, not identity.
-2. Reuse **generic mechanics** only when they do not carry huashu-specific narrative or styling.
-3. Replace every huashu-specific showcase, demo, and voice with TensorsLab-native material.
+2. Reuse **generic mechanics** only when they do not carry source-project-specific narrative or styling.
+3. Replace every external-project-specific showcase, demo, and voice with TensorsLab-native material.
 4. If a reused pattern still evokes huashu after the label is removed, rebuild it.
 5. Keep the full feature set, but remove the original project’s visual and verbal fingerprints.
 
@@ -38,15 +38,15 @@ Patterns that can be reused after replacing brand language, visuals, and example
 
 Patterns that should be recreated specifically for TensorsLab:
 
-- any huashu-branded demo
-- any original huashu launch animation
-- any huashu-specific showcase art
+- any source-project-branded demo
+- any original launch animation that is tied to that source project
+- any source-project-specific showcase art
 - any identity-heavy gallery example
-- any example that relies on 花叔 / huashu narrative cues
+- any example that relies on source-project narrative cues
 
 ## Decision rule
 
-If a sample still “feels like huashu” after the brand text is removed, rebuild it.
+If a sample still feels tied to the source project after the brand text is removed, rebuild it.
 
 ## Module-level guidance
 
@@ -55,7 +55,7 @@ If a sample still “feels like huashu” after the brand text is removed, rebui
 | `SKILL.md` | Rebuild | Rewrite voice, prompts, triggers, and brand language for TensorsLab |
 | `README.md` | Rebuild | Make the repo read like a TensorsLab product, not a derivative note |
 | `assets/animations.jsx` | Adapt | Keep the animation contract; replace implementation with TensorsLab-native primitives |
-| `assets/ios_frame.jsx` | Adapt | Keep the frame contract; no huashu-specific styling or sample content |
+| `assets/ios_frame.jsx` | Adapt | Keep the frame contract; no source-project-specific styling or sample content |
 | `assets/android_frame.jsx` | Adapt | Same as iOS frame |
 | `assets/macos_window.jsx` | Adapt | Same as iOS frame |
 | `assets/browser_window.jsx` | Adapt | Same as iOS frame |
@@ -77,4 +77,4 @@ If a sample still “feels like huashu” after the brand text is removed, rebui
 | `references/content-guidelines.md` | Rebuild | Must use TensorsLab-specific copy rules |
 | `references/audio-design-rules.md` | Adapt | Keep audio policy, but rewrite delivery examples |
 | `references/sfx-library.md` | Adapt | Keep categories, but rewrite naming and examples |
-| `scripts/*` | Replicate/Adapt | Preserve export mechanics, but remove any huashu-only references and sample data |
+| `scripts/*` | Replicate/Adapt | Preserve export mechanics, but remove any source-project-only references and sample data |

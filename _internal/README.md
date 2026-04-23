@@ -4,7 +4,7 @@ This directory is for reconstruction notes that should not be referenced from th
 
 ## Purpose
 
-- keep migration rationale for maintainers
+- keep reconstruction rationale for maintainers
 - track source-to-target decisions
 - store clean-room reconstruction notes
 - provide a practical reconstruction checklist for the team

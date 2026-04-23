@@ -1,16 +1,16 @@
 # TensorsLab Design
 
-TensorsLab Design is a **design-only** skill package inspired by the workflow structure of `huashu-design`, adapted for TensorsLab’s brand and product communication needs.
+TensorsLab Design is a **design-only** skill package for TensorsLab’s brand and product communication needs.
 
 ## Clean-room guarantee
 
 This repository is being reconstructed as a clean-room TensorsLab design skill:
 
 - keep the complete design capability set
-- remove huashu-specific identity, voice, and showcase artifacts
+- remove all non-TensorsLab identity, voice, and showcase artifacts
 - replace all visuals, examples, and language with TensorsLab-native material
 - preserve generic mechanics only when they are not identity-bearing
-- rebuild anything that still feels like huashu after the brand label is removed
+- rebuild anything that still feels like an external project after the label is removed
 
 ## What this skill is for
 
@@ -29,7 +29,7 @@ This repository is being reconstructed as a clean-room TensorsLab design skill:
 - General TensorsLab business logic
 - Internal operations tooling
 
-## Key differences from huashu-design
+## Key characteristics
 
 - Same design-first workflow structure
 - TensorsLab brand language and product context
@@ -48,7 +48,7 @@ This repository is being reconstructed as a clean-room TensorsLab design skill:
 
 ## Manual asset note
 
-Some examples from the original `huashu-design` repo are tightly coupled to that project’s brand or case library. Those should be **reworked**, not copied directly.
+Some examples are tightly coupled to their original brand or case library. Those should be **reworked**, not copied directly.
 
 If a needed asset cannot be generated automatically, the skill should explicitly tell the user which items must be provided manually:
 
@@ -73,4 +73,4 @@ TensorsLab--design/
 
 ## Manual case migration
 
-See `references/manual-case-migration.md` for examples that should be rebuilt instead of copied directly from huashu-design.
+See `references/manual-case-migration.md` for examples that should be rebuilt instead of copied directly.
