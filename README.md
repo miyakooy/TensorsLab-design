@@ -5,7 +5,7 @@
 高保真原型、营销页面、演示 Deck、信息图表——给 TensorsLab 的产品设计一枚 skill。
 
 ```
-npx skills add miyakooy/TensorsLab--design
+npx skills add miyakooy/TensorsLab--design -y
 ```
 
 然后在 agent 里说话：
@@ -83,7 +83,7 @@ assets/
 ## 装了怎么用
 
 ```bash
-npx skills add miyakooy/TensorsLab--design
+npx skills add miyakooy/TensorsLab--design -y
 ```
 
 然后直接说话下需求。Demo 画廊：
@@ -103,7 +103,7 @@ npx skills add miyakooy/TensorsLab--design
 Hi-fi prototypes, marketing pages, presentation decks, infographics — a design skill for TensorsLab products.
 
 ```
-npx skills add miyakooy/TensorsLab--design
+npx skills add miyakooy/TensorsLab--design -y
 ```
 
 Then talk to your agent:
@@ -181,7 +181,7 @@ This is an 80-point skill. For those who don't want to open a GUI, 80 points is 
 ## How to Install
 
 ```bash
-npx skills add miyakooy/TensorsLab--design
+npx skills add miyakooy/TensorsLab--design -y
 ```
 
 Then just talk to your agent. Demo gallery:
