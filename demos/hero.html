@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TensorsLab Hero Demo</title>
+    <style>
+      :root {
+        --bg: #f7fbff;
+        --bg-2: #eef7ff;
+        --ink: #07223d;
+        --muted: #5b728a;
+        --line: rgba(7, 34, 61, 0.12);
+        --blue: #2563eb;
+        --green: #0f766e;
+        --white: #ffffff;
+      }
+      html, body {
+        margin: 0;
+        min-height: 100%;
+        background:
+          radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 32%),
+          radial-gradient(circle at 85% 18%, rgba(15, 118, 110, 0.12), transparent 28%),
+          linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+        color: var(--ink);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+      body { padding: 28px; }
+      .shell {
+        position: relative;
+        overflow: hidden;
+        border-radius: 32px;
+        background: rgba(255,255,255,0.72);
+        border: 1px solid rgba(148,163,184,0.28);
+        box-shadow: 0 32px 100px rgba(7, 34, 61, 0.12);
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 24px;
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(18px);
+      }
+      .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; }
+      .dot { width: 14px; height: 14px; border-radius: 999px; background: linear-gradient(135deg, var(--blue), var(--green)); box-shadow: 0 0 0 6px rgba(37,99,235,0.08); }
+      .nav { display: flex; gap: 14px; color: var(--muted); font-size: 13px; }
+      .hero {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 32px;
+        padding: 36px 28px 28px;
+        align-items: center;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        width: fit-content;
+        border-radius: 999px;
+        background: rgba(37,99,235,0.09);
+        color: var(--blue);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      h1 {
+        margin: 16px 0 14px;
+        font-size: clamp(42px, 6vw, 76px);
+        line-height: 0.96;
+        letter-spacing: -0.05em;
+        max-width: 10ch;
+      }
+      .lede {
+        max-width: 56ch;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.7;
+        margin: 0 0 24px;
+      }
+      .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 18px;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        text-decoration: none;
+        color: var(--ink);
+        font-weight: 700;
+        background: rgba(255,255,255,0.82);
+      }
+      .btn.primary {
+        color: #fff;
+        background: linear-gradient(135deg, var(--blue), var(--green));
+        border-color: transparent;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 24px;
+      }
+      .stat {
+        padding: 14px 16px;
+        border-radius: 18px;
+        background: rgba(255,255,255,0.82);
+        border: 1px solid var(--line);
+      }
+      .stat strong { display: block; font-size: 24px; }
+      .stat span { color: var(--muted); font-size: 12px; letter-spacing: 0.02em; }
+      .panel {
+        position: relative;
+        min-height: 560px;
+        border-radius: 28px;
+        background: linear-gradient(180deg, rgba(7, 34, 61, 0.96), rgba(7, 34, 61, 0.88));
+        color: #dbeafe;
+        padding: 22px;
+        overflow: hidden;
+      }
+      .panel::before,
+      .panel::after {
+        content: '';
+        position: absolute;
+        border-radius: 999px;
+        filter: blur(22px);
+      }
+      .panel::before { inset: 40px 48px auto auto; width: 180px; height: 180px; background: rgba(37, 99, 235, 0.34); }
+      .panel::after { left: -20px; bottom: 12px; width: 220px; height: 220px; background: rgba(15, 118, 110, 0.26); }
+      .stack { position: relative; display: grid; gap: 14px; z-index: 1; }
+      .glass {
+        padding: 16px;
+        border-radius: 18px;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.14);
+        backdrop-filter: blur(14px);
+      }
+      .mini-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+      .metric { padding: 16px; border-radius: 18px; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.12); }
+      .metric strong { display: block; font-size: 28px; }
+      .metric span { color: rgba(219,234,254,0.72); font-size: 12px; }
+      .foot {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        padding: 0 28px 28px;
+      }
+      .foot-card {
+        min-height: 88px;
+        padding: 16px;
+        border-radius: 18px;
+        background: rgba(255,255,255,0.82);
+        border: 1px solid var(--line);
+      }
+      .foot-card b { display: block; margin-bottom: 8px; }
+      .foot-card span { color: var(--muted); font-size: 13px; line-height: 1.5; }
+      @media (max-width: 960px) {
+        .hero { grid-template-columns: 1fr; }
+        .foot { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <div class="topbar">
+        <div class="brand"><span class="dot"></span><span>TensorsLab</span></div>
+        <div class="nav"><span>Models</span><span>Studio</span><span>Docs</span></div>
+      </div>
+      <section class="hero">
+        <div>
+          <div class="eyebrow">AI content infrastructure</div>
+          <h1>Design that feels industrial, clear, and ready to ship.</h1>
+          <p class="lede">A hero concept for TensorsLab Design that blends product trust, high-throughput visual language, and clean information hierarchy into a single homepage opening.</p>
+          <div class="actions">
+            <a class="btn primary" href="#">Start building</a>
+            <a class="btn" href="#">Explore docs</a>
+          </div>
+          <div class="stats">
+            <div class="stat"><strong>12x</strong><span>visual throughput</span></div>
+            <div class="stat"><strong>99.9%</strong><span>workflow clarity</span></div>
+            <div class="stat"><strong>3</strong><span>design modes</span></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="stack">
+            <div class="glass">
+              <b>Launch system</b>
+              <div style="margin-top:8px;color:rgba(219,234,254,0.72);line-height:1.6;">Visual assets, motion direction, and messaging aligned around a single structured product story.</div>
+            </div>
+            <div class="mini-grid">
+              <div class="metric"><strong>Green</strong><span>trust accent</span></div>
+              <div class="metric"><strong>Blue</strong><span>product anchor</span></div>
+            </div>
+            <div class="glass" style="min-height: 164px; display: grid; gap: 12px; align-content: start;">
+              <b>Hero card stack</b>
+              <div style="height: 12px; border-radius: 999px; background: rgba(219,234,254,0.14);"></div>
+              <div style="height: 12px; width: 78%; border-radius: 999px; background: rgba(219,234,254,0.14);"></div>
+              <div style="height: 12px; width: 56%; border-radius: 999px; background: rgba(219,234,254,0.14);"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="foot">
+        <div class="foot-card"><b>Brand clarity</b><span>Focus on recognizable structure, minimal noise, and confident hierarchy.</span></div>
+        <div class="foot-card"><b>Product trust</b><span>Use precise spacing and calm motion cues to signal reliability.</span></div>
+        <div class="foot-card"><b>Studio modes</b><span>Prototype, deck, and motion share one design language.</span></div>
+        <div class="foot-card"><b>Scalable system</b><span>The same hero can extend into pricing, docs, and launch pages.</span></div>
+      </section>
+    </div>
+  </body>
+</html>
