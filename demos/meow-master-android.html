@@ -4,263 +4,279 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>喵大师 - Android版</title>
+  
+  <!-- React + Babel exactly like Claude Design -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  
   <style>
-    :root {
-      --bg: #ffffff;
-      --surface: #f5f5f5;
-      --card: #eeeeee;
-      --accent: #e94560;
-      --accent2: #f5a623;
-      --text: #1a1a2e;
-      --text2: #666666;
-      --green: #4ade80;
-      --notch: #000000;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #000;
-      color: var(--text);
-    }
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .phone {
-      width: 360px;
-      height: 800px;
-      background: var(--bg);
-      border-radius: 32px;
-      box-shadow: 0 0 0 8px #222, 0 0 0 10px #444, 0 30px 60px rgba(0,0,0,0.4);
-      overflow: hidden;
-      position: relative;
-    }
-    /* Android punch-hole */
-    .notch {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 12px;
-      height: 28px;
-      background: var(--notch);
-      border-radius: 0 0 12px 12px;
-      z-index: 100;
-    }
-    /* Status bar */
-    .status-bar {
-      display: flex;
-      justify-content: space-between;
-      padding: 14px 20px 0;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text2);
-    }
-    /* Main content */
-    .content {
-      padding: 52px 16px 80px;
-      height: 100%;
-      overflow-y: auto;
-    }
-    /* Header */
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-    .avatar {
-      width: 64px;
-      height: 64px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-      box-shadow: 0 4px 20px rgba(233, 69, 96, 0.3);
-    }
-    .header-text h1 {
-      font-size: 18px;
-      font-weight: 700;
-    }
-    .header-text p {
-      font-size: 12px;
-      color: var(--text2);
-    }
-    /* Status chip */
-    .status-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      background: rgba(74, 222, 128, 0.15);
-      color: #16a34a;
-      border-radius: 12px;
-      font-size: 11px;
-      margin-top: 4px;
-    }
-    .status-chip::before {
-      content: '';
-      width: 5px;
-      height: 5px;
-      background: #16a34a;
-      border-radius: 50%;
-    }
-    /* Features */
-    .features {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    .feature {
-      padding: 16px;
-      background: var(--surface);
-      border-radius: 16px;
-    }
-    .feature-icon {
-      font-size: 24px;
-      margin-bottom: 8px;
-    }
-    .feature h3 {
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-    .feature p {
-      font-size: 10px;
-      color: var(--text2);
-    }
-    /* Chat preview */
-    .chat-preview {
-      margin-top: 16px;
-      background: var(--surface);
-      border-radius: 16px;
-      padding: 12px;
-    }
-    .chat-title {
-      font-size: 11px;
-      color: var(--text2);
-      margin-bottom: 8px;
-    }
-    .chat-msg {
-      font-size: 12px;
-      line-height: 1.4;
-    }
-    .chat-msg .me { color: var(--accent); }
-    /* Bottom nav - Android style */
-    .bottom-nav {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 12px 16px 24px;
-      background: var(--bg);
-      border-top: 1px solid var(--card);
-    }
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      font-size: 10px;
-      color: var(--text2);
-    }
-    .nav-item.active { color: var(--accent); }
-    .nav-icon { font-size: 22px; }
-    /* Screen indicator */
-    .screen-ind {
-      position: absolute;
-      top: 36px;
-      right: 16px;
-      background: var(--accent);
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-size: 8px;
-      z-index: 10;
-    }
+    const androidFrameStyles = {
+      container: {
+        position: 'relative',
+        width: 360,
+        height: 800,
+        background: '#ffffff',
+        borderRadius: 32,
+        boxShadow: '0 0 0 8px #222, 0 0 0 10px #444, 0 30px 60px rgba(0,0,0,0.4)',
+        overflow: 'hidden',
+        margin: 'auto',
+      },
+      notch: {
+        position: 'absolute',
+        top: 0,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: 12,
+        height: 28,
+        background: '#000',
+        borderRadius: '0 0 12px 12px',
+        zIndex: 100,
+      },
+    };
+    
+    const androidTokens = {
+      bg: '#ffffff',
+      surface: '#f5f5f5',
+      card: '#eeeeee',
+      accent: '#e94560',
+      accent2: '#f5a623',
+      text: '#1a1a2e',
+      textSecondary: '#666666',
+      green: '#16a34a',
+    };
   </style>
 </head>
-<body>
-  <div class="phone">
-    <div class="notch"></div>
-    <div class="status-bar">
-      <span>9:41</span>
-      <span>🔋 88%</span>
-    </div>
+<body style="background:#000;padding:20px;">
+  <div id="root"></div>
+  
+  <script type="text/babel">
+    const { useState } = React;
     
-    <div class="content">
-      <!-- Header -->
-      <div class="header">
-        <div class="avatar">🐱</div>
-        <div class="header-text">
-          <h1>喵大师</h1>
-          <p>你的桌面AI宠物</p>
-          <div class="status-chip">在线 · 随时待命</div>
-        </div>
+    // ===== Android-specific components =====
+    
+    const AStatusBar = ({ time, battery }) => (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '14px 20px 0',
+        fontSize: 12,
+        fontWeight: 600,
+        color: androidTokens.textSecondary,
+      }}>
+        <span>{time}</span>
+        <span>🔋 {battery}%</span>
       </div>
+    );
+    
+    const AAvatar = ({ emoji, gradient }) => (
+      <div style={{
+        width: 64,
+        height: 64,
+        background: `linear-gradient(135deg, ${gradient[0]}, ${gradient[1]})`,
+        borderRadius: 20,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 32,
+        boxShadow: '0 4px 20px rgba(233, 69, 96, 0.3)',
+      }}>
+        {emoji}
+      </div>
+    );
+    
+    const AFeatureGrid = ({ items }) => (
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 10,
+      }}>
+        {items.map((item, i) => (
+          <div key={i} style={{
+            padding: 16,
+            background: androidTokens.surface,
+            borderRadius: 16,
+          }}>
+            <div style={{ fontSize: 24, marginBottom: 8 }}>{item.icon}</div>
+            <h3 style={{
+              fontSize: 13,
+              fontWeight: 600,
+              color: androidTokens.text,
+              marginBottom: 2,
+            }}>{item.title}</h3>
+            <p style={{
+              fontSize: 10,
+              color: androidTokens.textSecondary,
+            }}>{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    );
+    
+    const AChatPreview = ({ messages }) => (
+      <div style={{
+        marginTop: 16,
+        background: androidTokens.surface,
+        borderRadius: 16,
+        padding: 12,
+      }}>
+        <div style={{
+          fontSize: 11,
+          color: androidTokens.textSecondary,
+          marginBottom: 8,
+        }}>最近对话</div>
+        {messages.map((msg, i) => (
+          <div key={i} style={{
+            fontSize: 12,
+            lineHeight: 1.4,
+            marginBottom: 4,
+          }}>
+            {msg.own ? (
+              <span style={{ color: androidTokens.accent }}>我：</span>
+            ) : null}
+            {msg.text}
+          </div>
+        ))}
+      </div>
+    );
+    
+    const ABottomNav = ({ activeTab }) => {
+      const tabs = [
+        { icon: '🏠', label: '首页', key: 'home' },
+        { icon: '📋', label: '任务', key: 'tasks' },
+        { icon: '💬', label: '对话', key: 'chat' },
+        { icon: '⚙️', label: '设置', key: 'settings' },
+      ];
       
-      <!-- Features 2x2 -->
-      <div class="features">
-        <div class="feature">
-          <div class="feature-icon">🧠</div>
-          <h3>聪明小脑瓜</h3>
-          <p>AI智能理解</p>
+      return (
+        <div style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          display: 'flex',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          padding: '12px 16px 24px',
+          background: androidTokens.bg,
+          borderTop: '1px solid ' + androidTokens.card,
+        }}>
+          {tabs.map(tab => (
+            <div key={tab.key} style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 4,
+              fontSize: 10,
+              color: activeTab === tab.key ? androidTokens.accent : androidTokens.textSecondary,
+              cursor: 'pointer',
+            }}>
+              <span style={{ fontSize: 22 }}>{tab.icon}</span>
+              <span>{tab.label}</span>
+            </div>
+          ))}
         </div>
-        <div class="feature">
-          <div class="feature-icon">⏰</div>
-          <h3>定时提醒</h3>
-          <p>Push通知</p>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">📋</div>
-          <h3>任务状态</h3>
-          <p>实时播报</p>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">⚡</div>
-          <h3>大师模式</h3>
-          <p>Coding助手</p>
-        </div>
+      );
+    };
+    
+    const AStatusChip = ({ children }) => (
+      <div style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 6,
+        padding: '4px 10px',
+        background: 'rgba(74, 222, 128, 0.15)',
+        color: androidTokens.green,
+        borderRadius: 12,
+        fontSize: 11,
+        marginTop: 4,
+      }}>
+        <span style={{
+          width: 5,
+          height: 5,
+          background: androidTokens.green,
+          borderRadius: '50%',
+        }} />
+        {children}
       </div>
+    );
+    
+    // ===== Main App =====
+    const MeowMasterAndroid = () => {
+      const [activeTab, setActiveTab] = useState('home');
       
-      <!-- Chat -->
-      <div class="chat-preview">
-        <div class="chat-title">最近对话</div>
-        <div class="chat-msg">
-          <p><span class="me">我：</span> 检测到在coding</p>
-          <p>🐱：切换到大师模式中...</p>
+      const features = [
+        { icon: '🧠', title: '聪明小脑瓜', desc: 'AI智能理解' },
+        { icon: '⏰', title: '定时提醒', desc: 'Push通知' },
+        { icon: '📋', title: '任务状态', desc: '实时播报' },
+        { icon: '⚡', title: '大师模式', desc: 'Coding助手' },
+      ];
+      
+      const messages = [
+        { text: '检测到在coding', own: true },
+        { text: '🐱：切换到大师模式中...', own: false },
+      ];
+      
+      return (
+        <div style={androidFrameStyles.container}>
+          <div style={androidFrameStyles.notch} />
+          <AStatusBar time="9:41" battery={88} />
+          
+          <div style={{
+            padding: '52px 16px 80px',
+            height: '100%',
+            overflowY: 'auto',
+          }}>
+            {/* Header */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 16,
+              marginBottom: 24,
+            }}>
+              <AAvatar emoji="🐱" gradient={[androidTokens.accent, androidTokens.accent2]} />
+              <div>
+                <h1 style={{
+                  fontSize: 18,
+                  fontWeight: 700,
+                  color: androidTokens.text,
+                }}>喵大师</h1>
+                <p style={{
+                  fontSize: 12,
+                  color: androidTokens.textSecondary,
+                }}>你的桌面AI宠物</p>
+                <AStatusChip>在线 · 随时待命</AStatusChip>
+              </div>
+            </div>
+            
+            {/* Features 2x2 */}
+            <AFeatureGrid items={features} />
+            
+            {/* Chat */}
+            <AChatPreview messages={messages} />
+          </div>
+          
+          <ABottomNav activeTab={activeTab} />
         </div>
-      </div>
-    </div>
+      );
+    };
     
-    <!-- Bottom Nav -->
-    <div class="bottom-nav">
-      <div class="nav-item active">
-        <span class="nav-icon">🏠</span>
-        <span>首页</span>
-      </div>
-      <div class="nav-item">
-        <span class="nav-icon">📋</span>
-        <span>任务</span>
-      </div>
-      <div class="nav-item">
-        <span class="nav-icon">💬</span>
-        <span>对话</span>
-      </div>
-      <div class="nav-item">
-        <span class="nav-icon">⚙️</span>
-        <span>设置</span>
-      </div>
-    </div>
+    // Export for sharing (like Claude Design)
+    Object.assign(window, {
+      MeowMasterAndroid,
+      AStatusBar,
+      AAvatar,
+      AFeatureGrid,
+      AChatPreview,
+      ABottomNav,
+      AStatusChip,
+    });
     
-    <div class="screen-ind">Android</div>
+    ReactDOM.render(<MeowMasterAndroid />, document.getElementById('root'));
+  </script>
+  
+  <div style="position:fixed;bottom:20px;right:20px;background:#1a1a2e;color:#fff;padding:12px 16px;border-radius:8px;font-size:13px;font-family:monospace;">
+    💡 打开方式：在Finder中找到文件拖到Chrome浏览器
   </div>
 </body>
 </html>

@@ -4,328 +4,370 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>喵大师 - AI桌面陪伴宠物</title>
+  
+  <!-- React + Babel with integrity hashes (exactly like Claude Design) -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  
   <style>
-    :root {
-      --bg: #1a1a2e;
-      --surface: #16213e;
-      --card: #0f3460;
-      --accent: #e94560;
-      --accent2: #f5a623;
-      --text: #ffffff;
-      --text2: #a0a0b0;
-      --green: #4ade80;
-    }
+    /* Global reset */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #000;
-      color: var(--text);
-    }
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .phone {
-      width: 390px;
-      height: 844px;
-      background: var(--bg);
-      border-radius: 44px;
-      box-shadow: 0 0 0 12px #333, 0 0 0 14px #555, 0 30px 60px rgba(0,0,0,0.5);
-      overflow: hidden;
-      position: relative;
-    }
-    /* iPhone notch */
-    .notch {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 160px;
-      height: 32px;
-      background: #000;
-      border-radius: 0 0 20px 20px;
-      z-index: 100;
-    }
-    /* Status bar */
-    .status-bar {
-      display: flex;
-      justify-content: space-between;
-      padding: 14px 24px 0;
-      font-size: 13px;
-      font-weight: 600;
-      position: relative;
-      z-index: 10;
-    }
-    /* Main content */
-    .content {
-      padding: 60px 20px 100px;
-      height: 100%;
-      overflow-y: auto;
-    }
-    /* Header with cat avatar */
-    .header {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-    .avatar {
-      width: 100px;
-      height: 100px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      border-radius: 50%;
-      margin: 0 auto 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 48px;
-      box-shadow: 0 8px 30px rgba(233, 69, 96, 0.3);
-      animation: float 3s ease-in-out infinite;
-    }
+    
+    /* iPhone frame - exact dimensions like Claude Design */
+    const iosFrameStyles = {
+      container: {
+        position: 'relative',
+        width: 390,
+        height: 844,
+        background: '#1a1a2e',
+        borderRadius: 44,
+        boxShadow: '0 0 0 12px #333, 0 0 0 14px #555, 0 30px 60px rgba(0,0,0,0.5)',
+        overflow: 'hidden',
+        margin: 'auto',
+      },
+      notch: {
+        position: 'absolute',
+        top: 0,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: 160,
+        height: 32,
+        background: '#000',
+        borderRadius: '0 0 20px 20px',
+        zIndex: 100,
+      },
+      homeIndicator: {
+        position: 'absolute',
+        bottom: 8,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: 134,
+        height: 5,
+        background: 'rgba(255,255,255,0.3)',
+        borderRadius: 3,
+      },
+    };
+
+    /* App styles - proper design tokens */
+    const appTokens = {
+      bg: '#1a1a2e',
+      surface: '#16213e', 
+      card: '#0f3460',
+      accent: '#e94560',
+      accent2: '#f5a623',
+      text: '#ffffff',
+      textSecondary: '#a0a0b0',
+      green: '#4ade80',
+    };
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  
+  <script type="text/babel">
+    const { useState } = React;
+    
+    // ===== Components (exactly like Claude Design patterns) =====
+    
+    // 1. StatusBar component
+    const StatusBar = ({ time, battery }) => (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '14px 24px 0',
+        fontSize: 13,
+        fontWeight: 600,
+        color: appTokens.text,
+        fontFamily: 'SF Pro Display, -apple-system, sans-serif',
+      }}>
+        <span>{time}</span>
+        <span>🔋 {battery}%</span>
+      </div>
+    );
+
+    // 2. Avatar with float animation
+    const Avatar = ({ emoji, gradient }) => (
+      <div style={{
+        width: 100,
+        height: 100,
+        background: `linear-gradient(135deg, ${gradient[0]}, ${gradient[1]})`,
+        borderRadius: '50%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 48,
+        boxShadow: '0 8px 30px rgba(233, 69, 96, 0.3)',
+        animation: 'float 3s ease-in-out infinite',
+        margin: '0 auto 16px',
+      }}>
+        {emoji}
+      </div>
+    );
+
+    // 3. FeatureCard with proper touch feedback
+    const FeatureCard = ({ icon, title, description }) => {
+      const [active, setActive] = useState(false);
+      
+      return (
+        <div 
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 16,
+            padding: 16,
+            background: appTokens.surface,
+            borderRadius: 16,
+            transition: 'all 0.15s ease',
+            transform: active ? 'scale(0.98)' : 'scale(1)',
+            cursor: 'pointer',
+          }}
+          onMouseDown={() => setActive(true)}
+          onMouseUp={() => setActive(false)}
+          onMouseLeave={() => setActive(false)}
+        >
+          <div style={{
+            width: 48,
+            height: 48,
+            background: appTokens.card,
+            borderRadius: 12,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 24,
+          }}>
+            {icon}
+          </div>
+          <div>
+            <h3 style={{
+              fontSize: 15,
+              fontWeight: 600,
+              color: appTokens.text,
+              marginBottom: 4,
+            }}>{title}</h3>
+            <p style={{
+              fontSize: 12,
+              color: appTokens.textSecondary,
+            }}>{description}</p>
+          </div>
+        </div>
+      );
+    };
+
+    // 4. ActionButton
+    const ActionButton = ({ children, primary }) => (
+      <button style={{
+        flex: 1,
+        padding: '14px 16px',
+        background: primary ? appTokens.accent : appTokens.card,
+        border: 'none',
+        borderRadius: 12,
+        color: appTokens.text,
+        fontSize: 14,
+        fontWeight: 600,
+        cursor: 'pointer',
+        transition: 'all 0.15s ease',
+      }}>
+        {children}
+      </button>
+    );
+
+    // 5. ChatBubble
+    const ChatBubble = ({ children, isOwn }) => (
+      <div style={{
+        background: isOwn ? appTokens.accent : appTokens.card,
+        padding: '12px 16px',
+        borderRadius: isOwn ? '16px 16px 16px 4px' : '16px 16px 4px 16px',
+        fontSize: 14,
+        lineHeight: 1.5,
+        maxWidth: '85%',
+        marginBottom: 8,
+        alignSelf: isOwn ? 'flex-end' : 'flex-start',
+        marginLeft: isOwn ? 'auto' : 0,
+      }}>
+        {children}
+      </div>
+    );
+
+    // 6. BottomNav
+    const BottomNav = ({ activeTab }) => {
+      const tabs = [
+        { icon: '🏠', label: '首页', key: 'home' },
+        { icon: '📋', label: '任务', key: 'tasks' },
+        { icon: '⏰', label: '提醒', key: 'remind' },
+        { icon: '⚙️', label: '设置', key: 'settings' },
+      ];
+      
+      return (
+        <div style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          display: 'flex',
+          justifyContent: 'space-around',
+          padding: '12px 20px 28px',
+          background: appTokens.surface,
+          borderRadius: '0 0 44px 44px',
+        }}>
+          {tabs.map(tab => (
+            <div key={tab.key} style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 4,
+              fontSize: 10,
+              color: activeTab === tab.key ? appTokens.accent : appTokens.textSecondary,
+              cursor: 'pointer',
+            }}>
+              <span style={{ fontSize: 24 }}>{tab.icon}</span>
+              <span>{tab.label}</span>
+            </div>
+          ))}
+        </div>
+      );
+    };
+
+    // 7. StatusBadge
+    const StatusBadge = ({ children }) => (
+      <div style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 6,
+        padding: '6px 12px',
+        background: 'rgba(74, 222, 128, 0.15)',
+        color: appTokens.green,
+        borderRadius: 20,
+        fontSize: 12,
+        marginTop: 12,
+      }}>
+        <span style={{
+          width: 6,
+          height: 6,
+          background: appTokens.green,
+          borderRadius: '50%',
+        }} />
+        {children}
+      </div>
+    );
+
+    // ===== Main App =====
+    const MeowMasterApp = () => {
+      const [activeTab, setActiveTab] = useState('home');
+      const [chatMessages, setChatMessages] = useState([
+        { text: '检测到你在coding，需要启动大师模式帮你吗？🐱', own: false },
+        { text: '好啊，启动吧！', own: true },
+        { text: '收到！切换到大师模式中... 🔧', own: false },
+      ]);
+      
+      const addMessage = (text, own) => {
+        setChatMessages([...chatMessages, { text, own }]);
+      };
+      
+      const features = [
+        { icon: '🧠', title: '聪明小脑瓜', desc: '内置AI模型，理解你的每句话' },
+        { icon: '⏰', title: '定时提醒', desc: 'Push通知，叫你起床、提醒会议' },
+        { icon: '📋', title: '任务状态', desc: '实时播报，任务进度随时看' },
+        { icon: '⚡', title: '大师模式', desc: '复杂Coding任务自动启动' },
+      ];
+      
+      return (
+        <div style={iosFrameStyles.container}>
+          {/* Notch */}
+          <div style={iosFrameStyles.notch} />
+          
+          {/* Status Bar */}
+          <StatusBar time="9:41" battery={88} />
+          
+          {/* Main Content */}
+          <div style={{
+            padding: '60px 20px 100px',
+            height: '100%',
+            overflowY: 'auto',
+          }}>
+            {/* Header */}
+            <div style={{ textAlign: 'center', marginBottom: 24 }}>
+              <Avatar emoji="🐱" gradient={[appTokens.accent, appTokens.accent2]} />
+              <h1 style={{
+                fontSize: 24,
+                fontWeight: 700,
+                color: appTokens.text,
+                marginBottom: 4,
+              }}>喵大师</h1>
+              <p style={{
+                fontSize: 13,
+                color: appTokens.textSecondary,
+              }}>你的桌面AI陪伴宠物</p>
+              <StatusBadge>在线 · 随时待命</StatusBadge>
+            </div>
+            
+            {/* Features Grid */}
+            <div style={{ display: 'grid', gap: 12 }}>
+              {features.map((f, i) => (
+                <FeatureCard key={i} icon={f.icon} title={f.title} description={f.desc} />
+              ))}
+            </div>
+            
+            {/* Quick Actions */}
+            <div style={{ display: 'flex', gap: 10, marginTop: 20 }}>
+              <ActionButton>📝 新建任务</ActionButton>
+              <ActionButton primary>💬 和喵聊天</ActionButton>
+            </div>
+            
+            {/* Chat Preview */}
+            <div style={{
+              marginTop: 24,
+              background: appTokens.surface,
+              borderRadius: 16,
+              padding: 16,
+            }}>
+              <div style={{
+                fontSize: 13,
+                color: appTokens.textSecondary,
+                marginBottom: 12,
+              }}>最近对话</div>
+              
+              {chatMessages.map((msg, i) => (
+                <ChatBubble key={i} isOwn={msg.own}>{msg.text}</ChatBubble>
+              ))}
+            </div>
+          </div>
+          
+          {/* Bottom Nav */}
+          <BottomNav activeTab={activeTab} />
+          
+          {/* Home indicator */}
+          <div style={iosFrameStyles.homeIndicator} />
+        </div>
+      );
+    };
+
+    // Render with no conflicts (exactly like Claude Design)
+    Object.assign(window, {
+      MeowMasterApp,
+      StatusBar,
+      Avatar,
+      FeatureCard,
+      ActionButton,
+      ChatBubble,
+      BottomNav,
+      StatusBadge,
+    });
+
+    ReactDOM.render(<MeowMasterApp />, document.getElementById('root'));
+  </script>
+  
+  <style>
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-8px); }
     }
-    .app-name {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-    .app-tagline {
-      font-size: 13px;
-      color: var(--text2);
-    }
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      background: rgba(74, 222, 128, 0.15);
-      color: var(--green);
-      border-radius: 20px;
-      font-size: 12px;
-      margin-top: 12px;
-    }
-    .status-badge::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      background: var(--green);
-      border-radius: 50%;
-    }
-    /* Feature cards */
-    .features {
-      display: grid;
-      gap: 12px;
-    }
-    .feature {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 16px;
-      background: var(--surface);
-      border-radius: 16px;
-      transition: all 0.2s;
-    }
-    .feature:active { transform: scale(0.98); }
-    .feature-icon {
-      width: 48px;
-      height: 48px;
-      background: var(--card);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-    }
-    .feature-info h3 {
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    .feature-info p {
-      font-size: 12px;
-      color: var(--text2);
-    }
-    /* Quick actions */
-    .quick-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-    }
-    .action-btn {
-      flex: 1;
-      padding: 14px;
-      background: var(--card);
-      border: none;
-      border-radius: 12px;
-      color: var(--text);
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .action-btn.primary {
-      background: var(--accent);
-    }
-    .action-btn:active { transform: scale(0.95); }
-    /* Chat area */
-    .chat-area {
-      margin-top: 24px;
-      background: var(--surface);
-      border-radius: 16px;
-      padding: 16px;
-    }
-    .chat-title {
-      font-size: 13px;
-      color: var(--text2);
-      margin-bottom: 12px;
-    }
-    .chat-bubble {
-      background: var(--card);
-      padding: 12px 16px;
-      border-radius: 16px 16px 4px 16px;
-      font-size: 14px;
-      line-height: 1.5;
-      margin-bottom: 8px;
-    }
-    .chat-bubble.own {
-      background: var(--accent);
-      border-radius: 16px 16px 16px 4px;
-      text-align: right;
-    }
-    /* Bottom nav */
-    .bottom-nav {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: space-around;
-      padding: 12px 20px 28px;
-      background: var(--surface);
-      border-radius: 0 0 44px 44px;
-    }
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      font-size: 10px;
-      color: var(--text2);
-      cursor: pointer;
-    }
-    .nav-item.active {
-      color: var(--accent);
-    }
-    .nav-icon {
-      font-size: 24px;
-    }
-    /* Screen indicator */
-    .screen-ind {
-      position: absolute;
-      top: 48px;
-      right: 20px;
-      background: var(--accent);
-      padding: 4px 10px;
-      border-radius: 8px;
-      font-size: 9px;
-      z-index: 10;
-    }
   </style>
-</head>
-<body>
-  <div class="phone">
-    <div class="notch"></div>
-    <div class="status-bar">
-      <span>9:41</span>
-      <span>🔋 88%</span>
-    </div>
-    
-    <div class="content">
-      <!-- Header -->
-      <div class="header">
-        <div class="avatar">🐱</div>
-        <h1 class="app-name">喵大师</h1>
-        <p class="app-tagline">你的桌面AI陪伴宠物</p>
-        <div class="status-badge">在线 · 随时待命</div>
-      </div>
-      
-      <!-- Features -->
-      <div class="features">
-        <div class="feature">
-          <div class="feature-icon">🧠</div>
-          <div class="feature-info">
-            <h3>聪明小脑瓜</h3>
-            <p>内置AI模型，理解你的每句话</p>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">⏰</div>
-          <div class="feature-info">
-            <h3>定时提醒</h3>
-            <p>Push通知，叫你起床、提醒会议</p>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">📋</div>
-          <div class="feature-info">
-            <h3>任务状态</h3>
-            <p>实时播报，任务进度随时看</p>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">⚡</div>
-          <div class="feature-info">
-            <h3>大师模式</h3>
-            <p>复杂Coding任务自动启动</p>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Quick Actions -->
-      <div class="quick-actions">
-        <button class="action-btn">📝 新建任务</button>
-        <button class="action-btn primary">💬 和喵聊天</button>
-      </div>
-      
-      <!-- Chat Preview -->
-      <div class="chat-area">
-        <div class="chat-title">最近对话</div>
-        <div class="chat-bubble">
-          喵：检测到你在coding，需要启动大师模式帮你吗？🐱
-        </div>
-        <div class="chat-bubble own">
-          好啊，启动吧！
-        </div>
-        <div class="chat-bubble">
-          收到！切换到大师模式中... 🔧
-        </div>
-      </div>
-    </div>
-    
-    <!-- Bottom Nav -->
-    <div class="bottom-nav">
-      <div class="nav-item active">
-        <span class="nav-icon">🏠</span>
-        <span>首页</span>
-      </div>
-      <div class="nav-item">
-        <span class="nav-icon">📋</span>
-        <span>任务</span>
-      </div>
-      <div class="nav-item">
-        <span class="nav-icon">⏰</span>
-        <span>提醒</span>
-      </div>
-      <div class="nav-item">
-        <span class="nav-icon">⚙️</span>
-        <span>设置</span>
-      </div>
-    </div>
-    
-    <div class="screen-ind">iOS原型</div>
+  
+  <!-- View instructions -->
+  <div style="position:fixed;bottom:20px;right:20px;background:#1a1a2e;color:#fff;padding:12px 16px;border-radius:8px;font-size:13px;font-family:monospace;">
+    💡 打开方式：在Finder中找到文件拖到Chrome浏览器<br>
+    或运行 <code style="background:#333;padding:2px 6px;border-radius:4px;">open /Users/miaoy/Documents/Test/design/TensorsLab-design/demos/meow-master-app.html</code>
   </div>
 </body>
 </html>
